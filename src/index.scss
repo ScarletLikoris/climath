@@ -1,0 +1,54 @@
+@import '../styles/variables';
+@font-face {
+    font-family: 'Roboto-flex';
+    src: url('../fonts/RobotoFlex-VariableFont_GRAD\,XOPQ\,XTRA\,YOPQ\,YTAS\,YTDE\,YTFI\,YTLC\,YTUC\,opsz\,slnt\,wdth\,wght.ttf')
+        format('truetype');
+}
+:root {
+    font-family: Roboto-flex, Inter, system-ui, Avenir, Helvetica, Arial,
+        sans-serif;
+    line-height: 1.2;
+    font-weight: 400;
+
+    color-scheme: light;
+    color: $color-main-text;
+    background-color: $color-main-background;
+
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+button {
+    font-size: 16px;
+    font-weight: 400;
+    font-family: Roboto-flex;
+}
+
+p {
+    font-size: 16px;
+    font-weight: 400;
+    color: #111313;
+    text-decoration: inherit;
+}
+
+body {
+    margin: 0;
+    display: flex;
+    place-items: center;
+    min-width: 320px;
+    min-height: 100vh;
+}
+
+h1 {
+    font-size: 24px;
+    font-weight: 300;
+    line-height: 1.2;
+    color: #111313;
+}
+h2 {
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 1.2;
+    color: #111313;
+}

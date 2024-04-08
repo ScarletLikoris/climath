@@ -1,0 +1,34 @@
+@import '../../../styles/variables.scss';
+.header {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 32px;
+    width: 1080px;
+    height: 71px;
+    border: 2px solid $color-sub_gray;
+    border-radius: 16px;
+    &__buttons {
+        display: flex;
+        align-items: center;
+    }
+    &__info {
+        &__adress {
+            display: flex;
+            justify-content: right;
+        }
+        &__date {
+            margin-top: 4px;
+            font-size: 20px;
+            font-weight: 600;
+            display: flex;
+            justify-content: right;
+            align-items: center;
+            &-time {
+                margin-right: 12px;
+            }
+        }
+    }
+}

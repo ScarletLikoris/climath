@@ -1,0 +1,72 @@
+@import '../../../styles/variables.scss';
+.Reload_button {
+    display: flex;
+    margin-right: 16px;
+    padding: 12px 24px 12px 16px;
+    width: 208px;
+    height: 44px;
+    border: 0;
+    background: $color-sub_gray;
+    border-radius: 16px;
+    color: $color-main-text;
+    &:hover {
+        background-color: #c6c6c6;
+    }
+    &:active {
+        background-color: #bbbbbb;
+    }
+    &--short {
+        margin-right: 8px;
+        display: flex;
+        padding: 12px 24px 12px 16px;
+        width: 160px;
+        height: 44px;
+        border: 0;
+        background: $color-sub_gray;
+        border-radius: 16px;
+        color: $color-main-text;
+    }
+    i {
+        padding-right: 12px;
+    }
+}
+.Notification {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    position: relative;
+    &_button {
+        box-sizing: border-box;
+
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        padding: 12px;
+        gap: 12px;
+
+        width: 40px;
+        height: 40px;
+
+        background: $color-light-red;
+
+        border: 2px solid $color-red-border;
+        border-radius: 20px;
+        &:hover {
+            background: $color-red-border;
+        }
+        &:active {
+            background: darken($color-red-border, 2);
+            border: 2px solid darken($color-red-border, 2);
+        }
+    }
+    &_badge {
+        position: absolute;
+        width: 8px;
+        height: 8px;
+        border-radius: 8px;
+        top: 0.5px;
+        right: 2px;
+        background: $color-system-red;
+    }
+}

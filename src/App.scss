@@ -1,0 +1,63 @@
+@import '../styles/variables';
+#root {
+    margin: 0 auto;
+
+    text-align: center;
+    width: 1366px;
+    height: 650px;
+}
+.climath {
+    width: 1366px;
+    height: 650px;
+    display: flex;
+    flex-direction: row;
+    position: relative;
+
+    &__main {
+        display: flex;
+        height: 586px;
+        width: 1080px;
+        margin: 32px 32px 0 16px;
+    }
+    &__sidebar {
+        margin-top: 32px;
+        margin-left: 30px;
+        padding: 16px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        width: 176px;
+        min-height: 495px;
+        height: 554px;
+        background: $color-white;
+        border-radius: 16px;
+
+        ul {
+            margin-top: 40px;
+            width: 176px;
+            height: 224px;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        li {
+            width: 136px;
+            height: 20px;
+            padding: 12px 24px 12px 16px;
+            display: flex;
+
+            background-color: $color-white;
+            border-radius: 16px;
+            &.active {
+                background-color: $color-main-text;
+                color: $color-main-background;
+            }
+        }
+
+        i {
+            padding-right: 12px;
+        }
+    }
+}
