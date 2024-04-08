@@ -1,0 +1,31 @@
+@import '/styles/variables.scss';
+.climate {
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 30px 29px;
+
+    width: 238px;
+    height: 157px;
+
+    background: $color-white;
+
+    &--good {
+        border: 3px solid $color-green-border;
+        border-radius: 16px;
+    }
+    &--bad {
+        border: 3px solid $color-red-border;
+        border-radius: 16px;
+    }
+    h1 {
+        margin: 0;
+    }
+    span {
+        font-size: 40px;
+        font-weight: 600;
+    }
+}

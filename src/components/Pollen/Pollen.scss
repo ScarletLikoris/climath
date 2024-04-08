@@ -1,0 +1,38 @@
+@import '/styles/variables.scss';
+
+.pollen {
+    width: 322px;
+    height: 91px;
+
+    background: $color-white;
+    border-radius: 16px;
+    padding: 33px 32px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    &__info {
+        width: 322px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
+        &-points {
+            font-size: 40px;
+            font-weight: 600;
+        }
+        &-slashfive {
+            font-size: 20px;
+            font-weight: 600;
+        }
+        &__amount {
+            margin-right: 12px;
+        }
+    }
+
+    h1 {
+        margin: 0;
+    }
+}

@@ -1,4 +1,4 @@
-@import '../../../styles/variables.scss';
+@import '/styles/variables.scss';
 .Reload_button {
     display: flex;
     margin-right: 16px;
@@ -27,6 +27,8 @@
         color: $color-main-text;
     }
     i {
+        width: 16px;
+        height: 16px;
         padding-right: 12px;
     }
 }
