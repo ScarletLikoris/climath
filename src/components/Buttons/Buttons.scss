@@ -3,29 +3,20 @@
     display: flex;
     margin-right: 16px;
     padding: 12px 24px 12px 16px;
-    width: 208px;
+    width: 140px;
     height: 44px;
     border: 0;
     background: $color-sub_gray;
     border-radius: 16px;
     color: $color-main-text;
+    cursor: pointer;
     &:hover {
         background-color: #c6c6c6;
     }
     &:active {
         background-color: #bbbbbb;
     }
-    &--short {
-        margin-right: 8px;
-        display: flex;
-        padding: 12px 24px 12px 16px;
-        width: 160px;
-        height: 44px;
-        border: 0;
-        background: $color-sub_gray;
-        border-radius: 16px;
-        color: $color-main-text;
-    }
+
     i {
         width: 16px;
         height: 16px;
@@ -33,42 +24,97 @@
     }
 }
 .Notification {
-    width: 40px;
+    width: 210px;
     height: 40px;
     display: flex;
     position: relative;
-    &_button {
-        box-sizing: border-box;
-
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        padding: 12px;
-        gap: 12px;
-
+    flex-direction: column;
+    &__container {
         width: 40px;
         height: 40px;
+        display: flex;
+        position: relative;
+        &_button {
+            cursor: pointer;
+            box-sizing: border-box;
 
-        background: $color-light-red;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            padding: 12px;
+            gap: 12px;
 
-        border: 2px solid $color-red-border;
-        border-radius: 20px;
-        &:hover {
-            background: $color-red-border;
+            width: 40px;
+            height: 40px;
+
+            background: $color-light-green;
+
+            border: 2px solid $color-green-border;
+            border-radius: 20px;
+            &:hover {
+                background: $color-green-border;
+            }
+            &:active {
+                background: darken($color-green-border, 2);
+                border: 2px solid darken($color-green-border, 2);
+            }
+            &--bad {
+                background: $color-light-red;
+                border: 2px solid $color-red-border;
+
+                &:hover {
+                    background: $color-red-border;
+                }
+                &:active {
+                    background: darken($color-red-border, 2);
+                    border: 2px solid darken($color-red-border, 2);
+                }
+            }
         }
-        &:active {
-            background: darken($color-red-border, 2);
-            border: 2px solid darken($color-red-border, 2);
+        &_badge {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border-radius: 8px;
+            top: 0.5px;
+            right: 2px;
+            background: $color-system-red;
+        }
+        i {
+            width: 16px;
+            height: 16px;
         }
     }
-    &_badge {
-        position: absolute;
-        width: 8px;
-        height: 8px;
-        border-radius: 8px;
-        top: 0.5px;
-        right: 2px;
-        background: $color-system-red;
+
+    &__popup {
+        text-align: left;
+        box-shadow: 0px 0px 12px 4px rgba(0, 0, 0, 0.12);
+        position: relative;
+        left: -41%;
+        top: 30%;
+        display: flex;
+        flex-direction: column;
+        padding: 12px;
+        width: 186px;
+        background: $color-white;
+        border-radius: 4px;
+        &-arrow {
+            width: 6px;
+            height: 6px;
+            position: absolute;
+            left: 50%;
+            top: 0%;
+            background: #ffffff;
+            transform: matrix(1, 1, -1, 1, -1.5, -2);
+        }
+        &-problem {
+            margin-top: 10px;
+        }
+        span {
+            display: flex;
+            flex-direction: column;
+            width: 186px;
+        }
     }
 }
