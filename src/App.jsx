@@ -3,8 +3,22 @@ import Logo from './components/Logo/Logo';
 import '../node_modules/bootstrap-icons/font/bootstrap-icons.scss';
 import './App.scss';
 import { NavLink, Route, Routes } from 'react-router-dom';
+import Statistics from './components/Statistics/Statistics';
+import History from './components/History/History';
 
 function App() {
+    let problems = {
+        temperature: false,
+        co2: true,
+        humidity: false,
+    };
+    let current_temperature = 24;
+    let current_co2 = 1900;
+    let current_humidity = 40;
+    let birch_pollen = 1;
+    let grass_pollen = 4;
+    let ambrosia_pollen = 0;
+    let comfortableDays = 0;
     return (
         <>
             <div className="climath">
@@ -29,8 +43,29 @@ function App() {
                 </div>
                 <div className="climath__main">
                     <Routes>
-                        <Route path="/" element={<Home />} />
-                        {/* <Route path="/stats" element={<Home />} /> */}
+                        <Route
+                            path="/"
+                            element={
+                                <Home
+                                    problems={problems}
+                                    temperature={current_temperature}
+                                    co2={current_co2}
+                                    humidity={current_humidity}
+                                    birch={birch_pollen}
+                                    grass={grass_pollen}
+                                    ambrosia={ambrosia_pollen}
+                                    comfortableDays={comfortableDays}
+                                />
+                            }
+                        />
+                        <Route
+                            path="/stats"
+                            element={<Statistics problems={problems} />}
+                        />
+                        <Route
+                            path="/history"
+                            element={<History problems={problems} />}
+                        />
                     </Routes>
                 </div>
             </div>

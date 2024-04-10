@@ -1,0 +1,50 @@
+@import '/styles/variables.scss';
+.history {
+    width: 1082px;
+    height: 590px;
+    background: $color-white;
+    border-radius: 16px;
+    position: relative;
+    &__content {
+        // overflow: hidden;
+        position: relative;
+        margin-left: 16px;
+        width: 857px;
+        height: 590px;
+        // display: flex;
+        // flex-direction: column;
+        // justify-content: space-between;
+    }
+    &__divider {
+        position: absolute;
+        width: 2px;
+        height: 590px;
+        left: 36px;
+        top: 0px;
+        background: $color-sub_gray;
+        border-radius: 1px;
+        z-index: 1;
+    }
+}
+.rcs-custom-scroll {
+    width: 881px;
+    margin: 0;
+}
+.rcs-outer-container {
+    height: 590px;
+}
+.rcs-inner-container {
+    height: 590px;
+}
+
+.rcs-inner-handle {
+    width: 8px;
+    background-color: #e6e6e6 !important;
+    border-radius: 0 !important;
+    height: calc(100% - 80px) !important;
+    margin-top: 40px !important;
+}
+.rcs-custom-scrollbar {
+    opacity: 1 !important;
+    // height: 510px !important;
+}

@@ -1,0 +1,77 @@
+@import '/styles/variables.scss';
+.history_data {
+    width: 857px;
+    height: 160px;
+    margin-top: 16px;
+    margin-bottom: 16px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    &:first-of-type {
+        margin-top: 40px;
+    }
+    &:last-of-type {
+        margin-bottom: 40px;
+    }
+    &__badge {
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        padding: 12px;
+        width: 40px;
+        height: 40px;
+        background: $color-sub_gray;
+        z-index: 2;
+        border: 2px solid $color-sub_gray;
+        border-radius: 20px;
+        // &--gray {
+        //     background: $color-sub_gray;
+        //     border: 2px solid $color-sub_gray;
+        // }
+        &--red {
+            background: $color-light-red;
+            border: 2px solid $color-red-border;
+        }
+        &--green {
+            background: $color-light-green;
+            border: 2px solid $color-green-border;
+        }
+    }
+    &__info {
+        box-sizing: border-box;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        padding: 24px 32px;
+        width: 305px;
+        height: 160px;
+
+        border: 3px solid $color-green-border;
+        border-radius: 16px;
+        &--bad {
+            border: 3px solid $color-red-border;
+        }
+    }
+    &__stats {
+        box-sizing: border-box;
+
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 24px 0px;
+
+        width: 440px;
+        height: 160px;
+        margin-right: 24px;
+        border: 3px solid $color-green-border;
+        border-radius: 16px;
+        &--bad {
+            border: 3px solid $color-red-border;
+        }
+    }
+}

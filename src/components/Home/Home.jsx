@@ -7,7 +7,16 @@ import { Chart } from '../Chart/Chart';
 import '../../../node_modules/bootstrap-icons/font/bootstrap-icons.scss';
 import NotificationButton from '../Buttons/NotificationButton';
 
-const Home = () => {
+const Home = ({
+    problems,
+    co2,
+    temperature,
+    humidity,
+    birch,
+    grass,
+    ambrosia,
+    comfortableDays,
+}) => {
     let currentAdress = 'г. Уфа, ул. Р. Зорге 34/3';
     let currentDate = new Date()
         .toISOString()
@@ -16,70 +25,69 @@ const Home = () => {
         .reverse()
         .join('.');
     let currentTime = new Date().toTimeString().slice(0, 9);
-    let comfotableDays = 0;
-    let temperature = 24;
-    let carbonDioxide = 1900;
-    let humidity = 40;
-    let birch_pollen = 1;
-    let grass_pollen = 4;
-    let ambrosia_pollen = 0;
+
     return (
-        <div>
-            <div className="header">
-                <div className="header__buttons">
+        <div className="home">
+            <div className="home__header">
+                <div className="home__header__buttons">
                     <ReloadButton />
-                    <NotificationButton />
+                    <NotificationButton climateProblems={problems} />
                 </div>
-                <div className="header__info">
-                    <div className="header__info__adress">{currentAdress}</div>
-                    <div className="header__info__date">
-                        <div className="header__info__date-time">
+                <div className="home__header__info">
+                    <div className="home__header__info__adress">
+                        {currentAdress}
+                    </div>
+                    <div className="home__header__info__date">
+                        <div className="home__header__info__date-time">
                             {currentTime}
                         </div>
                         <div>{currentDate}</div>
                     </div>
                 </div>
             </div>
-            <div className="content">
-                <div className="content__climate">
-                    <Climate name={'Температура'} stats={temperature + '℃'} />
+            <div className="home__content">
+                <div className="home__content__climate">
+                    <Climate
+                        name={'Температура'}
+                        stats={temperature}
+                        isBadClimate={problems.temperature}
+                        isTemperature
+                    />
                     <Climate
                         name={'CO2'}
-                        stats={carbonDioxide + ' ppm'}
-                        isBad
+                        stats={co2 + ' ppm'}
+                        isBadClimate={problems.co2}
                     />
-                    <Climate name={'Влажность'} stats={humidity + '%'} />
+                    <Climate
+                        name={'Влажность'}
+                        stats={humidity + '%'}
+                        isBadClimate={problems.humidity}
+                    />
                 </div>
-                <div className="content__pollen">
-                    <Pollen
-                        name={'Пыльца березы, баллы'}
-                        points={birch_pollen}
-                    />
+                <div className="home__content__pollen">
+                    <Pollen name={'Пыльца березы, баллы'} points={birch} />
                     <Pollen
                         name={'Пыльца злаковых трав, баллы'}
-                        points={grass_pollen}
+                        points={grass}
                     />
-                    <Pollen
-                        name={'Пыльца амброзии, баллы'}
-                        points={ambrosia_pollen}
-                    />
+                    <Pollen name={'Пыльца амброзии, баллы'} points={ambrosia} />
                 </div>
-                <div className="content__statistics">
+                <div className="home__content__statistics">
                     <NavLink
-                        className="content__statistics-chart"
+                        className="home__content__statistics-chart"
                         to="/stats"
                         draggable="false"
                     >
-                        <button className="content__statistics-button">
+                        <button className="home__content__statistics-button">
                             <i className="bi-box-arrow-up-right"></i>
                         </button>
                         <Chart />
                     </NavLink>
 
-                    <div className="content__statistics-comfort">
+                    <div className="home__content__statistics-comfort">
                         <h1>Комфортных дней</h1>
-                        <div className="content__statistics-comfort-container">
-                            <span>{comfotableDays}</span>
+                        <div className="home__content__statistics-comfort-container">
+                            <span>{comfortableDays}</span>
                             <NavLink to="/history" draggable="false">
                                 <button>
                                     История

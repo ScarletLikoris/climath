@@ -1,20 +1,40 @@
 import './Buttons.scss';
 import { React, useState } from 'react';
-const NotificationButton = () => {
+const NotificationButton = ({ climateProblems }) => {
     const [visiblePopup, setVisiblePopup] = useState(false);
     const [isBad, setIsBad] = useState(false);
     const [haveIndicator, setHaveIndicator] = useState(false);
+    let isBadCN = 'Notification__container_button';
+    let problems = [];
 
     function handleVisible() {
         setVisiblePopup(true);
+        isProblems();
     }
     function handleInvisible() {
         setVisiblePopup(false);
         setHaveIndicator(false);
     }
 
-    let problems = ['CO2', 'Влажность', 'Температура'];
-    let isBadCN = 'Notification__container_button';
+    const isProblems = function () {
+        for (let problem in climateProblems) {
+            if (climateProblems[problem]) {
+                switch (problem) {
+                    case 'temperature':
+                        problems.push('Температура');
+                        break;
+                    case 'co2':
+                        problems.push('CO2');
+                        break;
+                    case 'humidity':
+                        problems.push('Влажность');
+                        break;
+                }
+            }
+        }
+        return problems;
+    };
+    isProblems();
 
     if (isBad && problems.length == 0) {
         setIsBad(false);

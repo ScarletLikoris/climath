@@ -1,0 +1,19 @@
+@import '/styles/variables.scss';
+.statistics {
+    width: 1082px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    &__header {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+    &__content {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-content: space-between;
+        flex-wrap: wrap;
+    }
+}

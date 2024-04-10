@@ -1,140 +1,142 @@
 @import '/styles/variables.scss';
-.header {
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    padding: 12px 32px;
-    width: 1080px;
-    height: 71px;
-    border: 2px solid $color-sub_gray;
-    border-radius: 16px;
-    margin-bottom: 16px;
-    &__buttons {
+.home {
+    &__header {
+        box-sizing: border-box;
         display: flex;
+        flex-direction: row;
+        justify-content: space-between;
         align-items: center;
-    }
-    &__info {
-        &__adress {
+        padding: 12px 32px;
+        width: 1082px;
+        height: 71px;
+        border: 2px solid $color-sub_gray;
+        border-radius: 16px;
+        margin-bottom: 16px;
+        &__buttons {
             display: flex;
-            justify-content: right;
-        }
-        &__date {
-            margin-top: 4px;
-            font-size: 20px;
-            font-weight: 600;
-            display: flex;
-            justify-content: right;
             align-items: center;
-            &-time {
-                margin-right: 12px;
+        }
+        &__info {
+            &__adress {
+                display: flex;
+                justify-content: right;
+            }
+            &__date {
+                margin-top: 4px;
+                font-size: 20px;
+                font-weight: 600;
+                display: flex;
+                justify-content: right;
+                align-items: center;
+                &-time {
+                    margin-right: 12px;
+                }
             }
         }
     }
-}
-.content {
-    height: 499px;
-    width: 1080px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    &__climate {
+    &__content {
+        height: 503px;
+        width: 1082px;
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
         justify-content: space-between;
-    }
-    &__pollen {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-    }
-    &__statistics {
-        height: 499px;
-        width: 426px;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        &-chart {
-            width: 426px;
-            height: 340px;
-            background: $color-white;
-            border-radius: 16px;
-            display: flex;
-            align-items: flex-end;
-            flex-direction: column;
-        }
-        &-button {
-            margin: 16px;
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-            align-items: center;
-            padding: 12px;
-            width: 40px;
-            height: 40px;
-            background: $color-sub_gray;
-            border: 0;
-            border-radius: 20px;
-            cursor: pointer;
-            &:hover {
-                background: #c6c6c6;
-            }
-            &:active {
-                background-color: #bbbbbb;
-            }
-        }
-        &-comfort {
+        &__climate {
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            align-items: flex-start;
-            padding: 28px 32px;
-
-            width: 362px;
-            height: 91px;
-
-            background: $color-sub_gray;
-            border-radius: 16px;
-            &-container {
+        }
+        &__pollen {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        &__statistics {
+            height: 503px;
+            width: 426px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            &-chart {
+                width: 426px;
+                height: 340px;
+                background: $color-white;
+                border-radius: 16px;
                 display: flex;
-                font-display: row;
-                justify-content: space-between;
-                align-items: center;
-                width: 362px;
+                align-items: flex-end;
+                flex-direction: column;
             }
-            h1 {
-                margin: 0;
-            }
-            span {
-                font-size: 40px;
-                font-weight: 600;
-            }
-            button {
-                box-sizing: border-box;
+            &-button {
+                margin: 16px;
                 display: flex;
                 flex-direction: row;
+                justify-content: center;
                 align-items: center;
-                justify-content: space-between;
-                padding: 12px 16px 12px 24px;
-                margin: 0;
-                width: 139px;
-                height: 44px;
-                background-color: $color-sub_gray;
-                border: 2px solid $color-main-text;
-                border-radius: 16px;
+                padding: 12px;
+                width: 40px;
+                height: 40px;
+                background: $color-sub_gray;
+                border: 0;
+                border-radius: 20px;
                 cursor: pointer;
                 &:hover {
-                    background-color: #c6c6c6;
+                    background: #c6c6c6;
                 }
                 &:active {
                     background-color: #bbbbbb;
                 }
             }
-            i {
-                width: 16px;
-                height: 16px;
-                margin-right: 6px;
+            &-comfort {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                align-items: flex-start;
+                padding: 28px 32px;
+
+                width: 362px;
+                height: 91px;
+
+                background: $color-sub_gray;
+                border-radius: 16px;
+                &-container {
+                    display: flex;
+                    font-display: row;
+                    justify-content: space-between;
+                    align-items: center;
+                    width: 362px;
+                }
+                h1 {
+                    margin: 0;
+                }
+                span {
+                    font-size: 40px;
+                    font-weight: 600;
+                }
+                button {
+                    box-sizing: border-box;
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    justify-content: space-between;
+                    padding: 12px 16px 12px 24px;
+                    margin: 0;
+                    width: 139px;
+                    height: 44px;
+                    background-color: $color-sub_gray;
+                    border: 2px solid $color-main-text;
+                    border-radius: 16px;
+                    cursor: pointer;
+                    &:hover {
+                        background-color: #c6c6c6;
+                    }
+                    &:active {
+                        background-color: #bbbbbb;
+                    }
+                }
+                i {
+                    width: 16px;
+                    height: 16px;
+                    margin-right: 6px;
+                }
             }
         }
     }
