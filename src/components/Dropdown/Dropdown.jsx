@@ -2,7 +2,7 @@ import './Dropdown.scss';
 import '../../../node_modules/bootstrap-icons/font/bootstrap-icons.scss';
 import { React, useState } from 'react';
 
-function Dropdown() {
+function Dropdown({ isShort }) {
     const selectList = ['За сутки', 'За неделю', 'За месяц', 'За год'];
     const [visibleDropdown, setVisibleDropdown] = useState(false);
     const [dropdownSelect, setDropdownSelect] = useState(0);
@@ -15,7 +15,11 @@ function Dropdown() {
     return (
         <div className="dropdown">
             <button
-                className="dropdown_button"
+                className={
+                    isShort
+                        ? 'dropdown_button dropdown_button--short'
+                        : 'dropdown_button'
+                }
                 onClick={() => {
                     setVisibleDropdown(!visibleDropdown);
                 }}
@@ -24,7 +28,13 @@ function Dropdown() {
                 <i className="bi-chevron-down"></i>
             </button>
             {visibleDropdown && (
-                <div className="dropdown__content">
+                <div
+                    className={
+                        isShort
+                            ? 'dropdown__content dropdown__content--short'
+                            : 'dropdown__content'
+                    }
+                >
                     <button
                         className="dropdown__content_button"
                         onClick={() => {
