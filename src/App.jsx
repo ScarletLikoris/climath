@@ -5,12 +5,17 @@ import './App.scss';
 import { NavLink, Route, Routes } from 'react-router-dom';
 import Statistics from './components/Statistics/Statistics';
 import History from './components/History/History';
+import Recommendations from './components/Recommendations/Recommendations';
 
 function App() {
     let problems = {
         temperature: false,
+        high_temperature: false,
+        low_temperature: false,
         co2: true,
         humidity: false,
+        high_humidity: false,
+        low_humidity: false,
     };
     let climates = [
         {
@@ -21,6 +26,10 @@ function App() {
             allergens: 1,
             isBad: false,
             date: 'Суббота, 06.04, 02:00',
+            temperatureCompare: '=',
+            co2Compare: '=',
+            humidityCompare: '=',
+            allergensCompare: '=',
         },
         {
             id: 2,
@@ -30,6 +39,10 @@ function App() {
             allergens: 4,
             isBad: true,
             date: 'Суббота, 06.04, 04:00',
+            temperatureCompare: '-',
+            co2Compare: '+',
+            humidityCompare: '=',
+            allergensCompare: '+',
         },
         {
             id: 3,
@@ -39,6 +52,10 @@ function App() {
             allergens: 4,
             isBad: false,
             date: 'Суббота, 06.04, 06:00',
+            temperatureCompare: '-',
+            co2Compare: '-',
+            humidityCompare: '+',
+            allergensCompare: '=',
         },
         {
             id: 4,
@@ -48,6 +65,10 @@ function App() {
             allergens: 3,
             isBad: false,
             date: 'Суббота, 06.04, 08:00',
+            temperatureCompare: '+',
+            co2Compare: '+',
+            humidityCompare: '+',
+            allergensCompare: '-',
         },
         {
             id: 5,
@@ -57,6 +78,10 @@ function App() {
             allergens: 5,
             isBad: true,
             date: 'Суббота, 06.04, 10:00',
+            temperatureCompare: '-',
+            co2Compare: '-',
+            humidityCompare: '-',
+            allergensCompare: '+',
         },
     ];
     let current_temperature = 24;
@@ -114,9 +139,13 @@ function App() {
                             element={
                                 <History
                                     problems={problems}
-                                    climates={climates}
+                                    climates={climates.reverse()}
                                 />
                             }
+                        />
+                        <Route
+                            path="/recommendations"
+                            element={<Recommendations problems={problems} />}
                         />
                     </Routes>
                 </div>

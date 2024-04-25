@@ -13,19 +13,21 @@ const History = ({ climates }) => {
                 {climates &&
                     climates.map((climate, id) => {
                         let color = 'gray';
-                        if (id != 0) {
-                            let currentId = id;
-                            let lastId = id - 1;
+                        let icon = 'bi-dash';
+                        if (id != climates.length - 1) {
+                            let currentId = id + 1;
+                            let lastId = id;
                             let currentClimate = climates[currentId];
                             let lastClimate = climates[lastId];
-                            if (currentClimate.isBad) {
-                                console.log(1);
-                                if (!lastClimate.isBad) {
+                            if (lastClimate.isBad) {
+                                if (!currentClimate.isBad) {
                                     color = 'red';
+                                    icon = 'bi-arrow-down';
                                 }
                             } else {
-                                if (lastClimate.isBad) {
+                                if (currentClimate.isBad) {
                                     color = 'green';
+                                    icon = 'bi-arrow-up';
                                 }
                             }
                         }
@@ -35,12 +37,7 @@ const History = ({ climates }) => {
                                 key={climate.id}
                                 climate={climate}
                                 color={color}
-                                // temperature={climate.temperature}
-                                // co2={climate.co2}
-                                // humidity={climate.humidity}
-                                // allergens={climate.allergens}
-                                // isBad={climate.isBad}
-                                // date={climate.date}
+                                icon={icon}
                             />
                         );
                     })}
