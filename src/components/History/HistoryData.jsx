@@ -1,5 +1,10 @@
 import './HistoryData.scss';
 import '../../../node_modules/bootstrap-icons/font/bootstrap-icons.scss';
+import {
+    ArrowUpwardRounded,
+    ArrowDownwardRounded,
+    HorizontalRuleRounded,
+} from '@mui/icons-material';
 
 const HistoryData = ({ climate, color, icon }) => {
     return (
@@ -13,7 +18,13 @@ const HistoryData = ({ climate, color, icon }) => {
                         : 'history_data__badge history_data__badge--red'
                 }
             >
-                <i className={icon}></i>
+                {icon == 'dash' ? (
+                    <HorizontalRuleRounded />
+                ) : icon == 'arrow-up' ? (
+                    <ArrowUpwardRounded />
+                ) : (
+                    <ArrowDownwardRounded />
+                )}
             </div>
             <div
                 className={
@@ -36,48 +47,72 @@ const HistoryData = ({ climate, color, icon }) => {
                         : 'history_data__stats'
                 }
             >
-                <div className="history_data__stats-stat">
+                <div
+                    className={
+                        climate.temperatureBad
+                            ? 'history_data__stats-stat history_data__stats-stat--bad'
+                            : 'history_data__stats-stat'
+                    }
+                >
                     <span>Температура</span>
                     <span>{climate.temperature}℃</span>
                     {climate.temperatureCompare == '+' ? (
-                        <i className="bi-arrow-up"></i>
+                        <ArrowUpwardRounded />
                     ) : climate.temperatureCompare == '-' ? (
-                        <i className="bi-arrow-down"></i>
+                        <ArrowDownwardRounded />
                     ) : (
-                        <i className="bi-dash"></i>
+                        <HorizontalRuleRounded />
                     )}
                 </div>
-                <div className="history_data__stats-stat">
+                <div
+                    className={
+                        climate.humidityBad
+                            ? 'history_data__stats-stat history_data__stats-stat--bad'
+                            : 'history_data__stats-stat'
+                    }
+                >
                     <span>Влажность</span>
                     <span>{climate.humidity}%</span>
                     {climate.humidityCompare == '+' ? (
-                        <i className="bi-arrow-up"></i>
+                        <ArrowUpwardRounded />
                     ) : climate.humidityCompare == '-' ? (
-                        <i className="bi-arrow-down"></i>
+                        <ArrowDownwardRounded />
                     ) : (
-                        <i className="bi-dash"></i>
+                        <HorizontalRuleRounded />
                     )}
                 </div>
-                <div className="history_data__stats-stat">
+                <div
+                    className={
+                        climate.co2Bad
+                            ? 'history_data__stats-stat history_data__stats-stat--bad'
+                            : 'history_data__stats-stat'
+                    }
+                >
                     <span>Концентрация CO2</span>
                     <span>{climate.co2} ppm</span>
                     {climate.co2Compare == '+' ? (
-                        <i className="bi-arrow-up"></i>
+                        <ArrowUpwardRounded />
                     ) : climate.co2Compare == '-' ? (
-                        <i className="bi-arrow-down"></i>
+                        <ArrowDownwardRounded />
                     ) : (
-                        <i className="bi-dash"></i>
+                        <HorizontalRuleRounded />
                     )}
                 </div>
-                <div className="history_data__stats-stat">
+                <div
+                    className={
+                        climate.allergensBad
+                            ? 'history_data__stats-stat history_data__stats-stat--bad'
+                            : 'history_data__stats-stat'
+                    }
+                >
                     <span>Аллергены</span>
                     <span>{climate.allergens}/5</span>
                     {climate.allergensCompare == '+' ? (
-                        <i className="bi-arrow-up"></i>
+                        <ArrowUpwardRounded />
                     ) : climate.allergensCompare == '-' ? (
-                        <i className="bi-arrow-down"></i>
+                        <ArrowDownwardRounded />
                     ) : (
-                        <i className="bi-dash"></i>
+                        <HorizontalRuleRounded />
                     )}
                 </div>
             </div>

@@ -1,22 +1,11 @@
 import './Home.scss';
-import { NavLink } from 'react-router-dom';
 import Climate from '../Climate/Climate';
-import Pollen from '../Pollen/Pollen';
 import ReloadButton from '../Buttons/ReloadButton';
 import { Chart } from '../Chart/Chart';
-import '../../../node_modules/bootstrap-icons/font/bootstrap-icons.scss';
 import NotificationButton from '../Buttons/NotificationButton';
+import SettingsButton from '../Buttons/SettingsButton';
 
-const Home = ({
-    problems,
-    co2,
-    temperature,
-    humidity,
-    birch,
-    grass,
-    ambrosia,
-    comfortableDays,
-}) => {
+const Home = ({ problems, co2, temperature, humidity, comfortableDays }) => {
     let currentAdress = 'г. Уфа, ул. Р. Зорге 34/3';
     let currentDate = new Date()
         .toISOString()
@@ -31,6 +20,7 @@ const Home = ({
             <div className="home__header">
                 <div className="home__header__buttons">
                     <ReloadButton />
+                    <SettingsButton />
                     <NotificationButton climateProblems={problems} />
                 </div>
                 <div className="home__header__info">
@@ -64,37 +54,24 @@ const Home = ({
                         isBadClimate={problems.humidity}
                     />
                 </div>
-                <div className="home__content__pollen">
-                    <Pollen name={'Пыльца березы, баллы'} points={birch} />
-                    <Pollen
-                        name={'Пыльца злаковых трав, баллы'}
-                        points={grass}
-                    />
-                    <Pollen name={'Пыльца амброзии, баллы'} points={ambrosia} />
-                </div>
-                <div className="home__content__statistics">
-                    <NavLink
-                        className="home__content__statistics-chart"
-                        to="/stats"
-                        draggable="false"
-                    >
-                        <button className="home__content__statistics-button">
-                            <i className="bi-box-arrow-up-right"></i>
-                        </button>
-                        <Chart />
-                    </NavLink>
 
-                    <div className="home__content__statistics-comfort">
-                        <h1>Комфортных дней</h1>
-                        <div className="home__content__statistics-comfort-container">
-                            <span>{comfortableDays}</span>
-                            <NavLink to="/history" draggable="false">
-                                <button>
-                                    История
-                                    <i className="bi-arrow-up-right"></i>
-                                </button>
-                            </NavLink>
+                <div className="home__content__statistics">
+                    <div className="home__content__statistics__container">
+                        <div className="home__content__statistics-comfort">
+                            <h1>Уровень комфорта</h1>
+                            <div className="home__content__statistics-comfort-container">
+                                <h2>прохладно, легкий дискомфорт</h2>
+                            </div>
                         </div>
+                        <div className="home__content__statistics-comfort">
+                            <h1>Комфортных дней</h1>
+                            <div className="home__content__statistics-comfort-container">
+                                <span>{comfortableDays}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="home__content__statistics-chart">
+                        <Chart />
                     </div>
                 </div>
             </div>

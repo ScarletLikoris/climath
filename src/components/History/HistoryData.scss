@@ -37,9 +37,10 @@
             background: $color-light-green;
             border: 2px solid $color-green-border;
         }
-        i {
+        svg {
             width: 16px;
             height: 16px;
+            opacity: 0.54;
         }
     }
     &__info {
@@ -87,16 +88,21 @@
             height: 20px;
             padding: 4px 32px 4px 32px;
             display: flex;
+            align-items: center;
             flex-direction: row;
             justify-content: space-between;
+            &--bad {
+                background-color: $color-red-border;
+            }
             span {
                 width: 180px;
                 height: 20px;
                 text-align: left;
             }
-            i {
+            svg {
                 width: 16px;
                 height: 16px;
+                color: $color-main-text;
             }
         }
         &--bad {

@@ -7,8 +7,6 @@ import './index.scss';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
     <Router>
-        <React.StrictMode>
-            <App />
-        </React.StrictMode>
+        <App />
     </Router>
 );

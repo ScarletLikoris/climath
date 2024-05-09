@@ -1,0 +1,28 @@
+@import '/styles/variables.scss';
+.allergen {
+    height: 266px;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    &__content {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        padding: 0px;
+
+        width: 72px;
+        height: 32px;
+
+        flex: none;
+        order: 2;
+        flex-grow: 0;
+        z-index: 2;
+        &-logo {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 32px;
+            height: 32px;
+        }
+    }
+}

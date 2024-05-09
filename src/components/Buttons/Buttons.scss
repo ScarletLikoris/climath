@@ -5,6 +5,7 @@
     padding: 12px 24px 12px 16px;
     width: 140px;
     height: 44px;
+    align-items: center;
     border: 0;
     background: $color-sub_gray;
     border-radius: 16px;
@@ -17,7 +18,7 @@
         background-color: #bbbbbb;
     }
 
-    i {
+    svg {
         width: 16px;
         height: 16px;
         padding-right: 12px;
@@ -81,7 +82,7 @@
             right: 2px;
             background: $color-system-red;
         }
-        i {
+        svg {
             width: 16px;
             height: 16px;
         }
@@ -115,6 +116,109 @@
             display: flex;
             flex-direction: column;
             width: 186px;
+        }
+    }
+}
+.settings {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    margin-right: 16px;
+    &__container {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        position: relative;
+        &_button {
+            cursor: pointer;
+            box-sizing: border-box;
+
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            padding: 12px;
+            gap: 12px;
+            width: 40px;
+            height: 40px;
+
+            background: $color-sub_gray;
+
+            border: 0px;
+            border-radius: 20px;
+            &:hover {
+                background-color: #c6c6c6;
+            }
+            &:active {
+                background-color: #bbbbbb;
+            }
+        }
+        svg {
+            width: 16px;
+            height: 16px;
+        }
+    }
+    &__input {
+        display: flex;
+        flex-direction: row;
+        // justify-content: space-between;
+        align-items: center;
+        width: 124px;
+        height: 40px;
+        span {
+            margin-left: 12px;
+        }
+    }
+    &__dialog {
+        overflow: scroll;
+        &__container {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            align-items: center;
+        }
+        &_button {
+            cursor: pointer;
+            width: 301px;
+            height: 20px;
+            padding: 0;
+            border: 0;
+            background-color: $color-white;
+            color: #2196f3;
+            &:hover {
+                color: #1565c0;
+            }
+            &:active {
+                color: darken(#1565c0, 10%);
+            }
+        }
+    }
+}
+.report {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    width: 100%;
+    &_button {
+        display: flex;
+        cursor: pointer;
+        flex-direction: row;
+        align-items: center;
+        padding: 12px 24px 12px 16px;
+        gap: 12px;
+        margin: 0;
+        width: 172px;
+        height: 44px;
+        border: 0;
+        color: $color-white;
+        background: $color-blue-dop;
+        border-radius: 16px;
+        svg {
+            width: 16px;
+            height: 16px;
         }
     }
 }

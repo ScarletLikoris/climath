@@ -67,14 +67,6 @@ const Recommendations = ({ problems }) => {
                             >
                                 Концентрация CO2
                             </button>
-                            <button
-                                className="recs__header-dropdown_button"
-                                onClick={() => {
-                                    onClose('allergens');
-                                }}
-                            >
-                                Аллергены
-                            </button>
                         </div>
                     )}
                 </button>

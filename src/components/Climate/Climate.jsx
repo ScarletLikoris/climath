@@ -1,36 +1,93 @@
 import './Climate.scss';
 import classNames from 'classnames';
+import { PriorityHighRounded } from '@mui/icons-material';
 
 const Climate = ({ name, stats, isBadClimate, isTemperature }) => {
     return isTemperature ? (
         isBadClimate ? (
             <div className={classNames('climate', 'climate--bad')}>
-                <h1>{name}</h1>
-                <div className="climate__temperature">
+                <div className="climate__wrapper">
+                    <h1>{name}</h1>
+                    <PriorityHighRounded sx={{ color: '#f20530' }} />
+                </div>
+                <div className="climate__wrapper-stats">
                     <span>{stats}</span>
-                    <p className="climate__temperature_o">o</p>
+                    <p className="climate__wrapper-stats_o">o</p>
                     <span>C</span>
+                    <div className="climate__container">
+                        <div className="climate__const">
+                            / 20-28
+                            <p className="climate__const_o">o</p>C
+                        </div>
+                    </div>
                 </div>
             </div>
         ) : (
             <div className={classNames('climate', 'climate--good')}>
                 <h1>{name}</h1>
-                <div className="climate__temperature">
+                <div className="climate__wrapper-stats">
                     <span>{stats}</span>
-                    <p className="climate__temperature_o">o</p>
+                    <p className="climate__wrapper-stats_o">o</p>
                     <span>C</span>
+                    <div className="climate__container">
+                        <div className="climate__const">
+                            / 20-28
+                            <p className="climate__const_o">o</p>C
+                        </div>
+                    </div>
+                </div>
+            </div>
+        )
+    ) : name == 'CO2' ? (
+        isBadClimate ? (
+            <div className={classNames('climate', 'climate--bad')}>
+                <div className="climate__wrapper">
+                    <h1>{name}</h1>
+                    <PriorityHighRounded sx={{ color: '#f20530' }} />
+                </div>
+
+                <div className="climate__wrapper-stats">
+                    <span>{stats}</span>
+                    <div className="climate__container">
+                        <div className="climate__const">/ 1400 ppm</div>
+                    </div>
+                </div>
+            </div>
+        ) : (
+            <div className={classNames('climate', 'climate--good')}>
+                <h1>{name}</h1>
+
+                <div className="climate__wrapper-stats">
+                    <span>{stats}</span>
+                    <div className="climate__container">
+                        <div className="climate__const">/ 1400 ppm</div>
+                    </div>
                 </div>
             </div>
         )
     ) : isBadClimate ? (
         <div className={classNames('climate', 'climate--bad')}>
-            <h1>{name}</h1>
-            <span>{stats}</span>
+            <div className="climate__wrapper">
+                <h1>{name}</h1>
+                <PriorityHighRounded sx={{ color: '#f20530' }} />
+            </div>
+            <div className="climate__wrapper-stats">
+                <span>{stats}</span>
+                <div className="climate__container">
+                    <div className="climate__const">/ 30-65%</div>
+                </div>
+            </div>
         </div>
     ) : (
         <div className={classNames('climate', 'climate--good')}>
             <h1>{name}</h1>
-            <span>{stats}</span>
+
+            <div className="climate__wrapper-stats">
+                <span>{stats}</span>
+                <div className="climate__container">
+                    <div className="climate__const">/ 30-65%</div>
+                </div>
+            </div>
         </div>
     );
 };

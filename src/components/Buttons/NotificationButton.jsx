@@ -1,5 +1,7 @@
 import './Buttons.scss';
 import { React, useState } from 'react';
+import NotificationsRoundedIcon from '@mui/icons-material/NotificationsRounded';
+
 const NotificationButton = ({ climateProblems }) => {
     const [visiblePopup, setVisiblePopup] = useState(false);
     const [isBad, setIsBad] = useState(false);
@@ -57,7 +59,7 @@ const NotificationButton = ({ climateProblems }) => {
                         visiblePopup ? handleInvisible() : handleVisible();
                     }}
                 >
-                    <i className="bi-bell"></i>
+                    <NotificationsRoundedIcon />
                     {!visiblePopup && haveIndicator && (
                         <div className="Notification__container_badge"></div>
                     )}

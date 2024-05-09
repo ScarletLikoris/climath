@@ -1,0 +1,70 @@
+@import '../node_modules/bootstrap/scss/functions';
+@import '../node_modules/bootstrap/scss/variables';
+@import '../node_modules/bootstrap/scss/variables-dark';
+
+@import '../node_modules/bootstrap/scss/maps';
+@import '../node_modules/bootstrap/scss/mixins';
+@import '../node_modules/bootstrap/scss/root';
+@import '../node_modules/bootstrap/scss/forms';
+
+@import '/styles/variables';
+.form-check-input {
+    width: 32px !important;
+    height: 16px !important;
+    cursor: pointer;
+    &:checked {
+        background-color: $color-blue-dop;
+        border-color: $color-blue-dop;
+    }
+    &:focus {
+        box-shadow: none;
+    }
+}
+
+$form-check-min-height: $font-size-base * $line-height-base;
+$form-check-padding-start: $form-check-input-width + 0.5em;
+$form-check-margin-bottom: 0.125rem;
+$form-check-label-color: null;
+$form-check-label-cursor: null;
+$form-check-transition: null;
+
+$form-check-input-active-filter: brightness(90%);
+
+$form-check-input-bg: $input-bg;
+$form-check-input-border: var(--#{$prefix}border-width) solid
+    var(--#{$prefix}border-color);
+$form-check-input-border-radius: 0.25em;
+$form-check-radio-border-radius: 50%;
+$form-check-input-focus-border: $input-focus-border-color;
+$form-check-input-focus-box-shadow: $focus-ring-box-shadow;
+
+$form-check-input-checked-color: $component-active-color;
+$form-check-input-checked-bg-color: $component-active-bg;
+$form-check-input-checked-border-color: $form-check-input-checked-bg-color;
+$form-check-input-checked-bg-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'><path fill='none' stroke='#{$form-check-input-checked-color}' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='m6 10 3 3 6-6'/></svg>");
+$form-check-radio-checked-bg-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'><circle r='2' fill='#{$form-check-input-checked-color}'/></svg>");
+
+$form-check-input-indeterminate-color: $component-active-color;
+$form-check-input-indeterminate-bg-color: $component-active-bg;
+$form-check-input-indeterminate-border-color: $form-check-input-indeterminate-bg-color;
+$form-check-input-indeterminate-bg-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'><path fill='none' stroke='#{$form-check-input-indeterminate-color}' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M6 10h8'/></svg>");
+
+$form-check-input-disabled-opacity: 0.5;
+$form-check-label-disabled-opacity: $form-check-input-disabled-opacity;
+$form-check-btn-check-disabled-opacity: $btn-disabled-opacity;
+
+$form-check-inline-margin-end: 1rem;
+
+$form-switch-color: rgba($black, 0.25);
+$form-switch-width: 2em;
+$form-switch-padding-start: $form-switch-width + 0.5em;
+$form-switch-bg-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'><circle r='3' fill='#{$form-switch-color}'/></svg>");
+$form-switch-border-radius: $form-switch-width;
+$form-switch-transition: background-position 0.15s ease-in-out;
+
+$form-switch-focus-color: $input-focus-border-color;
+$form-switch-focus-bg-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'><circle r='3' fill='#{$form-switch-focus-color}'/></svg>");
+
+$form-switch-checked-color: $component-active-color;
+$form-switch-checked-bg-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'><circle r='3' fill='#{$form-switch-checked-color}'/></svg>");
+$form-switch-checked-bg-position: right center;

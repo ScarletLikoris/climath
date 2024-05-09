@@ -8,7 +8,7 @@
     align-items: flex-start;
     padding: 30px 29px;
 
-    width: 238px;
+    width: 350px;
     height: 157px;
 
     background: $color-white;
@@ -21,13 +21,44 @@
         border: 3px solid $color-red-border;
         border-radius: 16px;
     }
-    &__temperature {
+
+    &__wrapper {
         display: flex;
+        font-display: row;
+        justify-content: space-between;
+        width: 286px;
+        align-items: center;
+        svg {
+            width: 28px;
+            height: 28px;
+        }
+        &-stats {
+            display: flex;
+            flex-direction: row;
+            &_o {
+                margin: 0;
+                margin-left: 2px;
+                // margin-right: 2px;
+                font-size: 24px;
+                font-weight: 700;
+            }
+        }
+    }
+    &__container {
+        display: flex;
+        flex-direction: row;
+        align-items: end;
+        margin-left: 8px;
+    }
+    &__const {
+        display: flex;
+        flex-direction: row;
+        font-weight: 600;
+        font-size: 20px;
         &_o {
             margin: 0;
             margin-left: 2px;
-            // margin-right: 2px;
-            font-size: 24px;
+            font-size: 14px;
             font-weight: 700;
         }
     }

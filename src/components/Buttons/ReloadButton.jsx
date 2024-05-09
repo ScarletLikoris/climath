@@ -1,10 +1,11 @@
 import './Buttons.scss';
-import '../../../node_modules/bootstrap-icons/font/bootstrap-icons.scss';
+import ReplayRoundedIcon from '@mui/icons-material/ReplayRounded';
 
 const ReloadButton = () => {
     return (
         <button className="Reload_button">
-            <i className="bi-arrow-clockwise"></i>Обновить
+            <ReplayRoundedIcon />
+            Обновить
         </button>
     );
 };

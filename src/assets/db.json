@@ -1,0 +1,11 @@
+{
+  "settings": {
+    "updateInterval": "1",
+    "minTemperature": 20,
+    "maxTemperature": 28,
+    "minHumidity": 30,
+    "maxHumidity": 65,
+    "maxCO2": 1400,
+    "email": "example@mail.com"
+  }
+}

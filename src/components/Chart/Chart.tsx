@@ -39,7 +39,7 @@ export const data = {
     labels,
     datasets: [
         {
-            label: 'Залупа коня',
+            label: 'Уровень комфорта',
             data: labels.map(() => 1000),
             backgroundColor: 'rgba(255, 99, 132, 0.5)',
         },

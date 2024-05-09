@@ -38,52 +38,35 @@
         height: 503px;
         width: 1082px;
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         justify-content: space-between;
         &__climate {
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
             justify-content: space-between;
-        }
-        &__pollen {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
+            width: 1082px;
+            height: 157px;
         }
         &__statistics {
-            height: 503px;
-            width: 426px;
+            width: 1082px;
+            height: 330px;
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
             justify-content: space-between;
             &-chart {
-                width: 426px;
-                height: 340px;
+                width: 716px;
+                height: 330px;
                 background: $color-white;
                 border-radius: 16px;
                 display: flex;
                 align-items: flex-end;
                 flex-direction: column;
             }
-            &-button {
-                margin: 16px;
+
+            &__container {
                 display: flex;
-                flex-direction: row;
-                justify-content: center;
-                align-items: center;
-                padding: 12px;
-                width: 40px;
-                height: 40px;
-                background: $color-sub_gray;
-                border: 0;
-                border-radius: 20px;
-                cursor: pointer;
-                &:hover {
-                    background: #c6c6c6;
-                }
-                &:active {
-                    background-color: #bbbbbb;
-                }
+                flex-direction: column;
+                justify-content: space-between;
             }
             &-comfort {
                 display: flex;
@@ -92,20 +75,28 @@
                 align-items: flex-start;
                 padding: 28px 32px;
 
-                width: 362px;
-                height: 91px;
+                box-sizing: border-box;
+                width: 350px;
+                height: 157px;
 
-                background: $color-sub_gray;
+                background: $color-white;
                 border-radius: 16px;
                 &-container {
                     display: flex;
                     font-display: row;
                     justify-content: space-between;
                     align-items: center;
-                    width: 362px;
+                    width: 286px;
+                    height: 65px;
                 }
                 h1 {
                     margin: 0;
+                }
+                h2 {
+                    // margin: 0;
+                    font-size: 20px;
+                    font-weight: 600;
+                    text-align: left;
                 }
                 span {
                     font-size: 40px;

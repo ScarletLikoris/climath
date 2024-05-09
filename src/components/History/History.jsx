@@ -1,6 +1,5 @@
 import React from 'react';
 import './History.scss';
-import '../../../node_modules/bootstrap-icons/font/bootstrap-icons.scss';
 import HistoryData from './HistoryData';
 import ReloadButton from '../Buttons/ReloadButton';
 import Dropdown from '../Dropdown/Dropdown';
@@ -13,7 +12,7 @@ const History = ({ climates }) => {
                 {climates &&
                     climates.map((climate, id) => {
                         let color = 'gray';
-                        let icon = 'bi-dash';
+                        let icon = 'dash';
                         if (id != climates.length - 1) {
                             let currentId = id + 1;
                             let lastId = id;
@@ -22,12 +21,12 @@ const History = ({ climates }) => {
                             if (lastClimate.isBad) {
                                 if (!currentClimate.isBad) {
                                     color = 'red';
-                                    icon = 'bi-arrow-down';
+                                    icon = 'arrow-down';
                                 }
                             } else {
                                 if (currentClimate.isBad) {
                                     color = 'green';
-                                    icon = 'bi-arrow-up';
+                                    icon = 'arrow-up';
                                 }
                             }
                         }
