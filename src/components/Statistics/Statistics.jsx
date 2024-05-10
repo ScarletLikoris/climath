@@ -7,11 +7,11 @@ import './Statistics.scss';
 import SettingsButton from '../Buttons/SettingsButton';
 import ReportButton from '../Buttons/ReportButton';
 
-const Statistics = ({ problems }) => {
+const Statistics = ({ problems, setClimate }) => {
     return (
         <div className="statistics">
             <div className="statistics__header">
-                <ReloadButton />
+                <ReloadButton setClimate={setClimate} />
                 <SettingsButton />
                 <NotificationButton climateProblems={problems} />
                 <ReportButton />

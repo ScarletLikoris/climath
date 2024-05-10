@@ -4,7 +4,7 @@ import HistoryData from './HistoryData';
 import ReloadButton from '../Buttons/ReloadButton';
 import Dropdown from '../Dropdown/Dropdown';
 
-const History = ({ climates }) => {
+const History = ({ climates, setClimate }) => {
     return (
         <div className="history">
             <div className="history__divider"></div>
@@ -45,7 +45,7 @@ const History = ({ climates }) => {
                 <div className="history__sidebar-dropdown">
                     <Dropdown isShort />
                 </div>
-                <ReloadButton />
+                <ReloadButton setClimate={setClimate} />
             </div>
         </div>
     );

@@ -5,21 +5,24 @@ import { Chart } from '../Chart/Chart';
 import NotificationButton from '../Buttons/NotificationButton';
 import SettingsButton from '../Buttons/SettingsButton';
 
-const Home = ({ problems, co2, temperature, humidity, comfortableDays }) => {
+const Home = ({
+    setClimate,
+    settings,
+    problems,
+    co2,
+    temperature,
+    humidity,
+    comfortableDays,
+    currentDate,
+    currentTime,
+}) => {
     let currentAdress = 'г. Уфа, ул. Р. Зорге 34/3';
-    let currentDate = new Date()
-        .toISOString()
-        .slice(0, 10)
-        .split('-')
-        .reverse()
-        .join('.');
-    let currentTime = new Date().toTimeString().slice(0, 9);
 
     return (
         <div className="home">
             <div className="home__header">
                 <div className="home__header__buttons">
-                    <ReloadButton />
+                    <ReloadButton setClimate={setClimate} />
                     <SettingsButton />
                     <NotificationButton climateProblems={problems} />
                 </div>
@@ -38,17 +41,20 @@ const Home = ({ problems, co2, temperature, humidity, comfortableDays }) => {
             <div className="home__content">
                 <div className="home__content__climate">
                     <Climate
+                        settings={settings}
                         name={'Температура'}
                         stats={temperature}
                         isBadClimate={problems.temperature}
                         isTemperature
                     />
                     <Climate
+                        settings={settings}
                         name={'CO2'}
                         stats={co2 + ' ppm'}
                         isBadClimate={problems.co2}
                     />
                     <Climate
+                        settings={settings}
                         name={'Влажность'}
                         stats={humidity + '%'}
                         isBadClimate={problems.humidity}

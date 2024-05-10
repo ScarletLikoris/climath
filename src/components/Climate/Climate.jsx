@@ -2,7 +2,7 @@ import './Climate.scss';
 import classNames from 'classnames';
 import { PriorityHighRounded } from '@mui/icons-material';
 
-const Climate = ({ name, stats, isBadClimate, isTemperature }) => {
+const Climate = ({ settings, name, stats, isBadClimate, isTemperature }) => {
     return isTemperature ? (
         isBadClimate ? (
             <div className={classNames('climate', 'climate--bad')}>
@@ -16,7 +16,8 @@ const Climate = ({ name, stats, isBadClimate, isTemperature }) => {
                     <span>C</span>
                     <div className="climate__container">
                         <div className="climate__const">
-                            / 20-28
+                            / {settings.minTemperature}-
+                            {settings.maxTemperature}
                             <p className="climate__const_o">o</p>C
                         </div>
                     </div>
@@ -31,7 +32,8 @@ const Climate = ({ name, stats, isBadClimate, isTemperature }) => {
                     <span>C</span>
                     <div className="climate__container">
                         <div className="climate__const">
-                            / 20-28
+                            / {settings.minTemperature}-
+                            {settings.maxTemperature}
                             <p className="climate__const_o">o</p>C
                         </div>
                     </div>
@@ -49,7 +51,9 @@ const Climate = ({ name, stats, isBadClimate, isTemperature }) => {
                 <div className="climate__wrapper-stats">
                     <span>{stats}</span>
                     <div className="climate__container">
-                        <div className="climate__const">/ 1400 ppm</div>
+                        <div className="climate__const">
+                            / {settings.maxCO2} ppm
+                        </div>
                     </div>
                 </div>
             </div>
@@ -60,7 +64,9 @@ const Climate = ({ name, stats, isBadClimate, isTemperature }) => {
                 <div className="climate__wrapper-stats">
                     <span>{stats}</span>
                     <div className="climate__container">
-                        <div className="climate__const">/ 1400 ppm</div>
+                        <div className="climate__const">
+                            / {settings.maxCO2} ppm
+                        </div>
                     </div>
                 </div>
             </div>
@@ -74,7 +80,9 @@ const Climate = ({ name, stats, isBadClimate, isTemperature }) => {
             <div className="climate__wrapper-stats">
                 <span>{stats}</span>
                 <div className="climate__container">
-                    <div className="climate__const">/ 30-65%</div>
+                    <div className="climate__const">
+                        / {settings.minHumidity}-{settings.maxHumidity}%
+                    </div>
                 </div>
             </div>
         </div>
@@ -85,7 +93,9 @@ const Climate = ({ name, stats, isBadClimate, isTemperature }) => {
             <div className="climate__wrapper-stats">
                 <span>{stats}</span>
                 <div className="climate__container">
-                    <div className="climate__const">/ 30-65%</div>
+                    <div className="climate__const">
+                        / {settings.minHumidity}-{settings.maxHumidity}%
+                    </div>
                 </div>
             </div>
         </div>

@@ -16,8 +16,39 @@ import {
 } from '@mui/icons-material';
 
 function App() {
+    function getWeekDay(date) {
+        let days = [
+            'Воскресенье',
+            'Понедельник',
+            'Вторник',
+            'Среда',
+            'Четверг',
+            'Пятница',
+            'Суббота',
+        ];
+
+        return days[date.getDay()];
+    }
+    let currentDate = new Date()
+        .toISOString()
+        .slice(5, 10)
+        .split('-')
+        .reverse()
+        .join('.');
+    let currentTime = new Date().toTimeString().slice(0, 5);
+
+    const [settings, newSettings] = useState({
+        updateInterval: 2,
+        minTemperature: 20,
+        maxTemperature: 28,
+        minHumidity: 30,
+        maxHumidity: 65,
+        maxCO2: 1400,
+        email: 'example@mail.com',
+    });
     const [loading, setLoading] = useState(true);
     const [climate, setClimate] = useState();
+    const [climates, setClimates] = useState();
     const [problems, setProblems] = useState({
         temperature: false,
         high_temperature: false,
@@ -27,10 +58,26 @@ function App() {
         high_humidity: false,
         low_humidity: false,
     });
-    // const [climates, setClimates] = useState([]);
+
+    function getRandomArbitrary(min, max) {
+        return Math.random() * (max - min) + min;
+    }
+
+    const onAddClimates = (obj) => {
+        const newClimates = [...climates, obj];
+        setClimates(newClimates);
+    };
+
+    useEffect(() => {
+        axios.get('http://localhost:3000/settings').then(({ data }) => {
+            newSettings(data);
+        });
+    }, []);
+
+    let interval = settings.updateInterval * 3600000;
+
     useEffect(() => {
         setLoading(true);
-
         axios
             .get(
                 'https://api.openweathermap.org/data/2.5/weather?lat=54.75551&lon=55.99551&appid=4182aa5e1a7fe9cd80a2ff5e9c7cdb0c&units=metric',
@@ -55,23 +102,61 @@ function App() {
             .finally(() => {
                 setLoading(false);
             });
+        axios.get('http://localhost:3000/climates').then(({ data }) => {
+            setClimates(data);
+        });
     }, []);
+
+    setInterval(() => {
+        axios
+            .get(
+                'https://api.openweathermap.org/data/2.5/weather?lat=54.75551&lon=55.99551&appid=4182aa5e1a7fe9cd80a2ff5e9c7cdb0c&units=metric',
+                {
+                    transformResponse: [
+                        function (data) {
+                            let response = JSON.parse(data);
+
+                            response.main.co2 = Math.round(
+                                getRandomArbitrary(0.4, 2) *
+                                    response.main.pressure
+                            );
+
+                            return response;
+                        },
+                    ],
+                }
+            )
+            .then(({ data }) => {
+                setClimate(data);
+            })
+            .finally(() => {
+                setLoading(false);
+            });
+        axios.get('http://localhost:3000/climates').then(({ data }) => {
+            setClimates(data);
+        });
+    }, interval);
 
     useEffect(() => {
         if (climate?.main) {
-            if (climate.main.temp < 20) {
+            if (Math.round(climate.main.temp) < settings.minTemperature) {
                 setProblems((p) => ({
                     ...p,
                     temperature: true,
                     low_temperature: true,
                 }));
-            } else if (climate.main.temp > 28) {
+            } else if (
+                Math.round(climate.main.temp) > settings.maxTemperature
+            ) {
                 setProblems((p) => ({
                     ...p,
                     temperature: true,
                     high_temperature: true,
                 }));
-            } else if (climate.main.temp >= 20 && climate.main.temp <= 28) {
+            } else if (
+                Math.round(climate.main.temp) >= settings.minTemperature &&
+                Math.round(climate.main.temp) <= settings.maxTemperature
+            ) {
                 setProblems((p) => ({
                     ...p,
                     temperature: false,
@@ -80,36 +165,36 @@ function App() {
                 }));
             }
 
-            if (climate.main.humidity > 65) {
+            if (climate.main.humidity > settings.maxHumidity) {
                 setProblems((p) => ({
                     ...p,
                     humidity: true,
                     high_humidity: true,
                 }));
-            } else if (climate.main.humidity < 30) {
+            } else if (climate.main.humidity < settings.minHumidity) {
                 setProblems((p) => ({
                     ...p,
                     humidity: true,
                     low_humidity: true,
                 }));
             } else if (
-                climate.main.humidity >= 30 &&
-                climate.main.humidity <= 65
+                climate.main.humidity >= settings.minHumidity &&
+                climate.main.humidity <= settings.maxHumidity
             ) {
                 setProblems((p) => ({
                     ...p,
-                    humidity: true,
-                    low_humidity: true,
+                    humidity: false,
+                    low_humidity: false,
                     high_humidity: false,
                 }));
             }
 
-            if (climate.main.co2 > 1400) {
+            if (climate.main.co2 > settings.maxCO2) {
                 setProblems((p) => ({
                     ...p,
                     co2: true,
                 }));
-            } else if (climate.main.co2 <= 1400) {
+            } else if (climate.main.co2 <= settings.maxCO2) {
                 setProblems((p) => ({
                     ...p,
                     co2: false,
@@ -118,145 +203,66 @@ function App() {
         }
     }, [climate]);
 
-    // useEffect(() => {
-    //     if (climate?.main) {
-    //         console.log(climate.main.temp);
-    //         if (climate.main.temp < 20) {
-    //             problems.temperature = true;
-    //             problems.low_temperature = true;
-    //             setProblems(problems);
-    //         } else if (climate.main.temp > 28) {
-    //             problems.temperature = true;
-    //             problems.high_temperature = true;
-    //             setProblems(problems);
-    //         } else if (climate.main.temp >= 20 && climate.main.temp <= 28) {
-    //             problems.temperature = false;
-    //             problems.low_temperature = false;
-    //             problems.high_temperature = false;
-    //             setProblems(problems);
-    //         }
+    useEffect(() => {
+        if (climate?.main && false) {
+            axios
+                .post('http://localhost:3000/climates', {
+                    temperature: Math.round(climate.main.temp),
+                    co2: climate.main.co2,
+                    humidity: climate.main.humidity,
+                    isBad:
+                        Math.round(climate.main.temp) <
+                            settings.minTemperature ||
+                        Math.round(climate.main.temp) >
+                            settings.maxTemperature ||
+                        climate.main.humidity < settings.minHumidity ||
+                        climate.main.humidity > settings.maxHumidity ||
+                        climate.main.co2 > settings.maxCO2,
+                    date: `${getWeekDay(
+                        new Date()
+                    )}, ${currentDate}, ${currentTime}`,
+                    temperatureCompare:
+                        climates.reverse()[0].temperature >
+                        Math.round(climate.main.temp)
+                            ? '-'
+                            : climates.reverse()[0].temperature <
+                              Math.round(climate.main.temp)
+                            ? '+'
+                            : '=',
+                    co2Compare:
+                        climates.reverse()[0].co2 > climate.main.co2
+                            ? '-'
+                            : climates.reverse()[0].co2 < climate.main.co2
+                            ? '+'
+                            : '=',
+                    humidityCompare:
+                        climates.reverse()[0].humidity > climate.main.humidity
+                            ? '-'
+                            : climates.reverse()[0].humidity <
+                              climate.main.humidity
+                            ? '+'
+                            : '=',
 
-    //         if (climate.main.humidity > 65) {
-    //             problems.humidity = true;
-    //             problems.high_humidity = true;
-    //             setProblems(problems);
-    //         } else if (climate.main.humidity < 30) {
-    //             problems.humidity = true;
-    //             problems.low_humidity = true;
-    //             setProblems(problems);
-    //         } else if (
-    //             climate.main.humidity >= 30 &&
-    //             climate.main.humidity <= 65
-    //         ) {
-    //             problems.humidity = false;
-    //             problems.low_humidity = false;
-    //             problems.high_humidity = false;
-    //             setProblems(problems);
-    //         }
-
-    //         if (climate.main.current_co2 > 1400) {
-    //             problems.co2 = true;
-    //             setProblems(problems);
-    //         } else if (climate.main.current_co2 <= 1400) {
-    //             problems.co2 = false;
-    //             setProblems(problems);
-    //         }
-    //     }
-    // }, [climate]);
-
-    function getRandomArbitrary(min, max) {
-        return Math.random() * (max - min) + min;
-    }
-
-    let climates = [
-        {
-            id: 1,
-            temperature: 28,
-            co2: 1900,
-            humidity: 40,
-            allergens: 1,
-            isBad: false,
-            date: 'Суббота, 06.04, 02:00',
-            temperatureCompare: '=',
-            co2Compare: '=',
-            humidityCompare: '=',
-            allergensCompare: '=',
-            temperatureBad: false,
-            co2Bad: false,
-            humidityBad: false,
-            allergensBad: false,
-        },
-        {
-            id: 2,
-            temperature: 26,
-            co2: 2000,
-            humidity: 40,
-            allergens: 2,
-            date: 'Суббота, 06.04, 04:00',
-            temperatureCompare: '-',
-            co2Compare: '+',
-            humidityCompare: '=',
-            allergensCompare: '+',
-            isBad: true,
-            temperatureBad: false,
-            co2Bad: true,
-            humidityBad: false,
-            allergensBad: false,
-        },
-        {
-            id: 3,
-            temperature: 24,
-            co2: 1800,
-            humidity: 42,
-            allergens: 2,
-            date: 'Суббота, 06.04, 06:00',
-            temperatureCompare: '-',
-            co2Compare: '-',
-            humidityCompare: '+',
-            allergensCompare: '=',
-            isBad: false,
-            temperatureBad: false,
-            co2Bad: false,
-            humidityBad: false,
-            allergensBad: false,
-        },
-        {
-            id: 4,
-            temperature: 25,
-            co2: 1820,
-            humidity: 44,
-            allergens: 1,
-            date: 'Суббота, 06.04, 08:00',
-            temperatureCompare: '+',
-            co2Compare: '+',
-            humidityCompare: '+',
-            allergensCompare: '-',
-            isBad: false,
-            temperatureBad: false,
-            co2Bad: false,
-            humidityBad: false,
-            allergensBad: false,
-        },
-        {
-            id: 5,
-            temperature: 22,
-            co2: 1800,
-            humidity: 40,
-            allergens: 5,
-            date: 'Суббота, 06.04, 10:00',
-            temperatureCompare: '-',
-            co2Compare: '-',
-            humidityCompare: '-',
-            allergensCompare: '+',
-            isBad: true,
-            temperatureBad: true,
-            co2Bad: false,
-            humidityBad: false,
-            allergensBad: true,
-        },
-    ];
+                    temperatureBad:
+                        Math.round(climate.main.temp) <
+                            settings.minTemperature ||
+                        Math.round(climate.main.temp) > settings.maxTemperature,
+                    co2Bad: climate.main.co2 > settings.maxCO2,
+                    humidityBad:
+                        climate.main.humidity < settings.minHumidity ||
+                        climate.main.humidity > settings.maxHumidity,
+                })
+                .then(({ data }) => {
+                    onAddClimates(data);
+                })
+                .catch((e) => {
+                    console.log(e);
+                });
+        }
+    }, [climate]);
 
     let comfortableDays = 0;
+
     return (
         <>
             {loading ? (
@@ -289,6 +295,8 @@ function App() {
                                 path="/"
                                 element={
                                     <Home
+                                        setClimate={setClimate}
+                                        settings={settings}
                                         problems={problems}
                                         temperature={Math.round(
                                             climate.main.temp
@@ -296,17 +304,25 @@ function App() {
                                         co2={climate.main.co2}
                                         humidity={climate.main.humidity}
                                         comfortableDays={comfortableDays}
+                                        currentDate={currentDate}
+                                        currentTime={currentTime}
                                     />
                                 }
                             />
                             <Route
                                 path="/stats"
-                                element={<Statistics problems={problems} />}
+                                element={
+                                    <Statistics
+                                        setClimate={setClimate}
+                                        problems={problems}
+                                    />
+                                }
                             />
                             <Route
                                 path="/history"
                                 element={
                                     <History
+                                        setClimate={setClimate}
                                         problems={problems}
                                         climates={climates.reverse()}
                                     />

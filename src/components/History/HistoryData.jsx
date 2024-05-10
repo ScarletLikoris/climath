@@ -98,7 +98,7 @@ const HistoryData = ({ climate, color, icon }) => {
                         <HorizontalRuleRounded />
                     )}
                 </div>
-                <div
+                {/* <div
                     className={
                         climate.allergensBad
                             ? 'history_data__stats-stat history_data__stats-stat--bad'
@@ -114,7 +114,7 @@ const HistoryData = ({ climate, color, icon }) => {
                     ) : (
                         <HorizontalRuleRounded />
                     )}
-                </div>
+                </div> */}
             </div>
         </div>
     );
