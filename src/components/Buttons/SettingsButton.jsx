@@ -13,20 +13,10 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
 
-const SettingsButton = () => {
+const SettingsButton = ({ settings, newSettings }) => {
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
-
-    const [settings, newSettings] = useState({
-        updateInterval: 2,
-        minTemperature: 20,
-        maxTemperature: 28,
-        minHumidity: 30,
-        maxHumidity: 65,
-        maxCO2: 1400,
-        email: 'example@mail.com',
-    });
-
+    const [value, setValue] = useState(settings);
     const [open, setOpen] = useState(false);
 
     useEffect(() => {
@@ -50,21 +40,24 @@ const SettingsButton = () => {
         axios.get('http://localhost:3000/settings').then(({ data }) => {
             newSettings(data);
         });
+        setValue(settings);
     };
 
     const handleClose = () => {
         setOpen(false);
+        setValue(settings);
     };
 
     const setRecommendedSettinds = () => {
-        newSettings(recommendedSettings);
+        setValue(recommendedSettings);
     };
 
     const saveSettings = () => {
         handleClose();
-        axios.put('http://localhost:3000/settings', settings).catch(() => {
+        axios.put('http://localhost:3000/settings', value).catch(() => {
             alert('Не удалось сохранить настройки');
         });
+        newSettings(value);
     };
     return (
         <div className="settings">
@@ -127,9 +120,9 @@ const SettingsButton = () => {
                                             flexDirection: 'row',
                                             alignItems: 'center',
                                         }}
-                                        value={settings.updateInterval}
+                                        value={value.updateInterval}
                                         onChange={(event) => {
-                                            newSettings((s) => ({
+                                            setValue((s) => ({
                                                 ...s,
                                                 updateInterval:
                                                     event.target.value,
@@ -188,9 +181,9 @@ const SettingsButton = () => {
                                             flexDirection: 'row',
                                             alignItems: 'center',
                                         }}
-                                        value={settings.minTemperature}
+                                        value={value.minTemperature}
                                         onChange={(event) => {
-                                            newSettings((s) => ({
+                                            setValue((s) => ({
                                                 ...s,
                                                 minTemperature:
                                                     event.target.value,
@@ -230,9 +223,9 @@ const SettingsButton = () => {
                                             flexDirection: 'row',
                                             alignItems: 'center',
                                         }}
-                                        value={settings.maxTemperature}
+                                        value={value.maxTemperature}
                                         onChange={(event) => {
-                                            newSettings((s) => ({
+                                            setValue((s) => ({
                                                 ...s,
                                                 maxTemperature:
                                                     event.target.value,
@@ -272,9 +265,9 @@ const SettingsButton = () => {
                                             flexDirection: 'row',
                                             alignItems: 'center',
                                         }}
-                                        value={settings.minHumidity}
+                                        value={value.minHumidity}
                                         onChange={(event) => {
-                                            newSettings((s) => ({
+                                            setValue((s) => ({
                                                 ...s,
                                                 minHumidity: event.target.value,
                                             }));
@@ -313,9 +306,9 @@ const SettingsButton = () => {
                                             flexDirection: 'row',
                                             alignItems: 'center',
                                         }}
-                                        value={settings.maxHumidity}
+                                        value={value.maxHumidity}
                                         onChange={(event) => {
-                                            newSettings((s) => ({
+                                            setValue((s) => ({
                                                 ...s,
                                                 maxHumidity: event.target.value,
                                             }));
@@ -354,9 +347,9 @@ const SettingsButton = () => {
                                             flexDirection: 'row',
                                             alignItems: 'center',
                                         }}
-                                        value={settings.maxCO2}
+                                        value={value.maxCO2}
                                         onChange={(event) => {
-                                            newSettings((s) => ({
+                                            setValue((s) => ({
                                                 ...s,
                                                 maxCO2: event.target.value,
                                             }));
@@ -404,9 +397,9 @@ const SettingsButton = () => {
                                         flexDirection: 'row',
                                         alignItems: 'center',
                                     }}
-                                    value={settings.email}
+                                    value={value.email}
                                     onChange={(event) => {
-                                        newSettings((s) => ({
+                                        setValue((s) => ({
                                             ...s,
                                             email: event.target.value,
                                         }));

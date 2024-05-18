@@ -1,18 +1,28 @@
 import './Home.scss';
 import Climate from '../Climate/Climate';
+import Comfort from '../Comfort/Comfort';
 import ReloadButton from '../Buttons/ReloadButton';
-import { Chart } from '../Chart/Chart';
+import { VerticalChart } from '../Chart/VerticalChart';
 import NotificationButton from '../Buttons/NotificationButton';
 import SettingsButton from '../Buttons/SettingsButton';
+import ComfortHome from '../Comfort/ComfortHome';
 
 const Home = ({
+    comfort,
+    setComfort,
+    sendEmail,
+    w_comfort,
+    set_w_comfort,
+    setComfortColor,
+    climate,
+    climates,
     setClimate,
     settings,
+    newSettings,
     problems,
     co2,
     temperature,
     humidity,
-    comfortableDays,
     currentDate,
     currentTime,
 }) => {
@@ -22,8 +32,14 @@ const Home = ({
         <div className="home">
             <div className="home__header">
                 <div className="home__header__buttons">
-                    <ReloadButton setClimate={setClimate} />
-                    <SettingsButton />
+                    <ReloadButton
+                        setClimate={setClimate}
+                        sendEmail={sendEmail}
+                    />
+                    <SettingsButton
+                        settings={settings}
+                        newSettings={newSettings}
+                    />
                     <NotificationButton climateProblems={problems} />
                 </div>
                 <div className="home__header__info">
@@ -66,18 +82,21 @@ const Home = ({
                         <div className="home__content__statistics-comfort">
                             <h1>Уровень комфорта</h1>
                             <div className="home__content__statistics-comfort-container">
-                                <h2>прохладно, легкий дискомфорт</h2>
+                                <Comfort
+                                    comfort={comfort}
+                                    setComfort={setComfort}
+                                    climate={climate}
+                                    w_comfort={w_comfort}
+                                    set_w_comfort={set_w_comfort}
+                                    setComfortColor={setComfortColor}
+                                />
                             </div>
                         </div>
-                        <div className="home__content__statistics-comfort">
-                            <h1>Комфортных дней</h1>
-                            <div className="home__content__statistics-comfort-container">
-                                <span>{comfortableDays}</span>
-                            </div>
-                        </div>
+
+                        <ComfortHome w_comfort={w_comfort} />
                     </div>
                     <div className="home__content__statistics-chart">
-                        <Chart />
+                        <VerticalChart climates={climates} />
                     </div>
                 </div>
             </div>

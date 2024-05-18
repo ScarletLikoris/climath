@@ -4,20 +4,22 @@ import HistoryData from './HistoryData';
 import ReloadButton from '../Buttons/ReloadButton';
 import Dropdown from '../Dropdown/Dropdown';
 
-const History = ({ climates, setClimate }) => {
+const History = ({ climates, setClimate, sendEmail }) => {
+    let history = climates.slice(0);
+    history.reverse();
     return (
         <div className="history">
             <div className="history__divider"></div>
             <div className="history__content">
-                {climates &&
-                    climates.map((climate, id) => {
+                {history &&
+                    history.map((climate, id) => {
                         let color = 'gray';
                         let icon = 'dash';
-                        if (id != climates.length - 1) {
+                        if (id != history.length - 1) {
                             let currentId = id + 1;
                             let lastId = id;
-                            let currentClimate = climates[currentId];
-                            let lastClimate = climates[lastId];
+                            let currentClimate = history[currentId];
+                            let lastClimate = history[lastId];
                             if (lastClimate.isBad) {
                                 if (!currentClimate.isBad) {
                                     color = 'red';
@@ -42,10 +44,7 @@ const History = ({ climates, setClimate }) => {
                     })}
             </div>
             <div className="history__sidebar">
-                <div className="history__sidebar-dropdown">
-                    <Dropdown isShort />
-                </div>
-                <ReloadButton setClimate={setClimate} />
+                <ReloadButton setClimate={setClimate} sendEmail={sendEmail} />
             </div>
         </div>
     );

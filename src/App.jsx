@@ -2,7 +2,6 @@ import { NavLink, Route, Routes } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import './App.scss';
-
 import Home from './components/Home/Home';
 import Logo from './components/Logo/Logo';
 import Statistics from './components/Statistics/Statistics';
@@ -14,6 +13,8 @@ import {
     ScheduleRounded,
     BookmarkAddedRounded,
 } from '@mui/icons-material';
+
+import emailjs from '@emailjs/browser';
 
 function App() {
     function getWeekDay(date) {
@@ -29,6 +30,7 @@ function App() {
 
         return days[date.getDay()];
     }
+
     let currentDate = new Date()
         .toISOString()
         .slice(5, 10)
@@ -36,16 +38,19 @@ function App() {
         .reverse()
         .join('.');
     let currentTime = new Date().toTimeString().slice(0, 5);
+    let currentDateHome = new Date()
+        .toISOString()
+        .slice(0, 10)
+        .split('-')
+        .reverse()
+        .join('.');
+    let currentTimeHome = new Date().toTimeString().slice(0, 9);
 
-    const [settings, newSettings] = useState({
-        updateInterval: 2,
-        minTemperature: 20,
-        maxTemperature: 28,
-        minHumidity: 30,
-        maxHumidity: 65,
-        maxCO2: 1400,
-        email: 'example@mail.com',
-    });
+    const [comfortableDays, setCofmortableDays] = useState(0);
+    const [w_comfort, set_w_comfort] = useState();
+    const [comfortColor, setComfortColor] = useState();
+    const [comfort, setComfort] = useState();
+    const [settings, newSettings] = useState();
     const [loading, setLoading] = useState(true);
     const [climate, setClimate] = useState();
     const [climates, setClimates] = useState();
@@ -63,21 +68,91 @@ function App() {
         return Math.random() * (max - min) + min;
     }
 
+    const sendEmail = () => {
+        if (!loading) {
+            let message = [];
+            if (problems.temperature) {
+                message.push('Температура');
+            }
+            if (problems.humidity) {
+                message.push('Влажность');
+            }
+            if (problems.co2) {
+                message.push('CO2');
+            }
+            let templateParams = {
+                message: message.join('\n'),
+                email: settings?.email,
+            };
+            emailjs
+                .send('service_lhjfjh5', 'template_mrtwzra', templateParams, {
+                    publicKey: 'ASjzy2rSEB1FMgxPD',
+                })
+                .then(
+                    (response) => {
+                        console.log('SUCCESS!', response.status, response.text);
+                    },
+                    (error) => {
+                        console.log('FAILED...', error);
+                    }
+                );
+        }
+    };
+
     const onAddClimates = (obj) => {
         const newClimates = [...climates, obj];
         setClimates(newClimates);
     };
 
-    useEffect(() => {
+    const getMethod = () => {
+        console.log('get запрос');
+        setLoading(true);
+        axios.get('http://localhost:3000/climates').then(({ data }) => {
+            setClimates(data);
+        });
         axios.get('http://localhost:3000/settings').then(({ data }) => {
             newSettings(data);
         });
-    }, []);
+        axios
+            .get(
+                'https://api.openweathermap.org/data/2.5/weather?lat=54.75551&lon=55.99551&appid=4182aa5e1a7fe9cd80a2ff5e9c7cdb0c&units=metric',
+                {
+                    transformResponse: [
+                        function (data) {
+                            let response = JSON.parse(data);
 
-    let interval = settings.updateInterval * 3600000;
+                            response.main.co2 = Math.round(
+                                getRandomArbitrary(0.4, 2) *
+                                    response.main.pressure
+                            );
+
+                            return response;
+                        },
+                    ],
+                }
+            )
+            .then(({ data }) => {
+                setClimate(data);
+            })
+            .finally(() => {
+                setLoading(false);
+            });
+        sendEmail();
+    };
+
+    const comfortableDaysCounter = () => {};
 
     useEffect(() => {
         setLoading(true);
+        axios.get('http://localhost:3000/climates').then(({ data }) => {
+            setClimates(data);
+        });
+        axios.get('http://localhost:3000/settings').then(({ data }) => {
+            newSettings(data);
+            setInterval(() => {
+                getMethod();
+            }, data.updateInterval * 3600000);
+        });
         axios
             .get(
                 'https://api.openweathermap.org/data/2.5/weather?lat=54.75551&lon=55.99551&appid=4182aa5e1a7fe9cd80a2ff5e9c7cdb0c&units=metric',
@@ -102,40 +177,8 @@ function App() {
             .finally(() => {
                 setLoading(false);
             });
-        axios.get('http://localhost:3000/climates').then(({ data }) => {
-            setClimates(data);
-        });
+        // sendEmail();
     }, []);
-
-    setInterval(() => {
-        axios
-            .get(
-                'https://api.openweathermap.org/data/2.5/weather?lat=54.75551&lon=55.99551&appid=4182aa5e1a7fe9cd80a2ff5e9c7cdb0c&units=metric',
-                {
-                    transformResponse: [
-                        function (data) {
-                            let response = JSON.parse(data);
-
-                            response.main.co2 = Math.round(
-                                getRandomArbitrary(0.4, 2) *
-                                    response.main.pressure
-                            );
-
-                            return response;
-                        },
-                    ],
-                }
-            )
-            .then(({ data }) => {
-                setClimate(data);
-            })
-            .finally(() => {
-                setLoading(false);
-            });
-        axios.get('http://localhost:3000/climates').then(({ data }) => {
-            setClimates(data);
-        });
-    }, interval);
 
     useEffect(() => {
         if (climate?.main) {
@@ -201,10 +244,10 @@ function App() {
                 }));
             }
         }
-    }, [climate]);
+    }, [climate, settings]);
 
     useEffect(() => {
-        if (climate?.main && false) {
+        if (climate?.main && comfortColor) {
             axios
                 .post('http://localhost:3000/climates', {
                     temperature: Math.round(climate.main.temp),
@@ -221,6 +264,11 @@ function App() {
                     date: `${getWeekDay(
                         new Date()
                     )}, ${currentDate}, ${currentTime}`,
+                    currentDay: currentDate.slice(0, 2),
+                    currentTime: currentTime,
+                    currentWeekDay: getWeekDay(new Date()),
+                    currentMonth: currentDate.slice(3, 5),
+                    currentDate: currentDateHome,
                     temperatureCompare:
                         climates.reverse()[0].temperature >
                         Math.round(climate.main.temp)
@@ -251,6 +299,8 @@ function App() {
                     humidityBad:
                         climate.main.humidity < settings.minHumidity ||
                         climate.main.humidity > settings.maxHumidity,
+                    w_comfort: w_comfort,
+                    comfortColor: comfortColor,
                 })
                 .then(({ data }) => {
                     onAddClimates(data);
@@ -260,8 +310,6 @@ function App() {
                 });
         }
     }, [climate]);
-
-    let comfortableDays = 0;
 
     return (
         <>
@@ -295,8 +343,17 @@ function App() {
                                 path="/"
                                 element={
                                     <Home
+                                        comfort={comfort}
+                                        setComfort={setComfort}
+                                        sendEmail={sendEmail}
+                                        w_comfort={w_comfort}
+                                        set_w_comfort={set_w_comfort}
+                                        setComfortColor={setComfortColor}
+                                        climate={climate}
+                                        climates={climates}
                                         setClimate={setClimate}
                                         settings={settings}
+                                        newSettings={newSettings}
                                         problems={problems}
                                         temperature={Math.round(
                                             climate.main.temp
@@ -304,8 +361,8 @@ function App() {
                                         co2={climate.main.co2}
                                         humidity={climate.main.humidity}
                                         comfortableDays={comfortableDays}
-                                        currentDate={currentDate}
-                                        currentTime={currentTime}
+                                        currentDate={currentDateHome}
+                                        currentTime={currentTimeHome}
                                     />
                                 }
                             />
@@ -313,8 +370,14 @@ function App() {
                                 path="/stats"
                                 element={
                                     <Statistics
+                                        currentDateHome={currentDateHome}
+                                        sendEmail={sendEmail}
+                                        climates={climates}
+                                        settings={settings}
+                                        newSettings={newSettings}
                                         setClimate={setClimate}
                                         problems={problems}
+                                        currentDay={currentDate.slice(0, 2)}
                                     />
                                 }
                             />
@@ -322,9 +385,12 @@ function App() {
                                 path="/history"
                                 element={
                                     <History
+                                        sendEmail={sendEmail}
+                                        settings={settings}
+                                        newSettings={newSettings}
                                         setClimate={setClimate}
                                         problems={problems}
-                                        climates={climates.reverse()}
+                                        climates={climates}
                                     />
                                 }
                             />

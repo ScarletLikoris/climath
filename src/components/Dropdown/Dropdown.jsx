@@ -2,7 +2,7 @@ import './Dropdown.scss';
 import '../../../node_modules/bootstrap-icons/font/bootstrap-icons.scss';
 import { React, useState } from 'react';
 
-function Dropdown({ isShort }) {
+function Dropdown({ isShort, setDropdownValue }) {
     const selectList = ['За сутки', 'За неделю', 'За месяц', 'За год'];
     const [visibleDropdown, setVisibleDropdown] = useState(false);
     const [dropdownSelect, setDropdownSelect] = useState(0);
@@ -10,6 +10,7 @@ function Dropdown({ isShort }) {
     const onClose = function (selectedList) {
         setVisibleDropdown(false);
         setDropdownSelect(selectedList);
+        setDropdownValue(selectedList);
     };
 
     return (

@@ -11,18 +11,22 @@
         "preview": "vite preview"
     },
     "dependencies": {
+        "@emailjs/browser": "^4.3.3",
         "@emotion/react": "^11.11.4",
         "@emotion/styled": "^11.11.5",
         "@faker-js/faker": "^8.4.1",
         "@floating-ui/react": "^0.26.12",
         "@fontsource/roboto": "^5.0.13",
         "@mui/icons-material": "^5.15.16",
-        "@mui/material": "^5.15.15",
+        "@mui/material": "^5.15.18",
+        "@mui/x-date-pickers": "^7.5.0",
         "axios": "^1.6.8",
         "bootstrap": "^5.3.3",
         "bootstrap-icons": "^1.11.3",
         "chart.js": "^4.4.2",
         "classnames": "^2.5.1",
+        "dayjs": "^1.11.11",
+        "fs-js": "^1.0.6",
         "json-server": "^1.0.0-alpha.23",
         "localforage": "^1.10.0",
         "match-sorter": "^6.3.4",
@@ -33,9 +37,11 @@
         "react-dom": "^18.2.0",
         "react-router-dom": "^6.22.3",
         "sass": "^1.74.1",
-        "sort-by": "^1.2.0"
+        "sort-by": "^1.2.0",
+        "xlsx-js-style": "^1.2.0"
     },
     "devDependencies": {
+        "@svgr/webpack": "^8.1.0",
         "@types/react": "^18.2.66",
         "@types/react-dom": "^18.2.22",
         "@vitejs/plugin-react": "^4.2.1",

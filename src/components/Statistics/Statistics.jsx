@@ -7,20 +7,48 @@ import './Statistics.scss';
 import SettingsButton from '../Buttons/SettingsButton';
 import ReportButton from '../Buttons/ReportButton';
 
-const Statistics = ({ problems, setClimate }) => {
+const Statistics = ({
+    currentDateHome,
+
+    sendEmail,
+    problems,
+    climates,
+    setClimate,
+    settings,
+    newSettings,
+}) => {
     return (
         <div className="statistics">
             <div className="statistics__header">
-                <ReloadButton setClimate={setClimate} />
-                <SettingsButton />
+                <ReloadButton setClimate={setClimate} sendEmail={sendEmail} />
+                <SettingsButton settings={settings} newSettings={newSettings} />
                 <NotificationButton climateProblems={problems} />
-                <ReportButton />
+                <ReportButton
+                    climates={climates}
+                    currentDateHome={currentDateHome}
+                />
             </div>
             <div className="statistics__content">
-                <StatisticsChart name={'Температура'} />
-                <StatisticsChart name={'Влажность'} />
-                <StatisticsChart name={'CO2'} />
-                <StatisticsChart name={'Уровень комфорта'} />
+                <StatisticsChart
+                    name={'Температура'}
+                    chartName={'temperature'}
+                    climates={climates}
+                />
+                <StatisticsChart
+                    name={'Влажность'}
+                    chartName={'humidity'}
+                    climates={climates}
+                />
+                <StatisticsChart
+                    name={'CO2'}
+                    chartName={'co2'}
+                    climates={climates}
+                />
+                <StatisticsChart
+                    name={'Уровень комфорта'}
+                    climates={climates}
+                    isVertical
+                />
             </div>
         </div>
     );

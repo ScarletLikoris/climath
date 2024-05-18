@@ -1,10 +1,9 @@
 import './Buttons.scss';
-import { useState } from 'react';
+
 import axios from 'axios';
 import ReplayRoundedIcon from '@mui/icons-material/ReplayRounded';
 
-const ReloadButton = ({ setClimate }) => {
-    // const [climate, setClimate] = useState();
+const ReloadButton = ({ setClimate, sendEmail }) => {
     function getRandomArbitrary(min, max) {
         return Math.random() * (max - min) + min;
     }
@@ -32,6 +31,7 @@ const ReloadButton = ({ setClimate }) => {
         // .finally(() => {
         //     setLoading(false);
         // });
+        sendEmail();
     };
     return (
         <button className="Reload_button" onClick={onReload}>

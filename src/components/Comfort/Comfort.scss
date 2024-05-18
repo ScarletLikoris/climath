@@ -1,0 +1,42 @@
+.comfortHome {
+    display: flex;
+    flex-direction: row;
+    // justify-content: space-between;
+    align-items: center;
+    padding: 38.5px 32px;
+
+    box-sizing: border-box;
+    width: 350px;
+    height: 157px;
+    border-radius: 16px;
+
+    &_verycold {
+        background: #ffd4fb;
+    }
+    &_cold {
+        background: #e0d4ff;
+    }
+    &_cool {
+        background: #d4fffc;
+    }
+    &_comfort {
+        background: #daf4cd;
+    }
+    &_warm {
+        background: #feffd4;
+    }
+    &_hot {
+        background: #fff3d4;
+    }
+    &_veryhot {
+        background: #ffd4d4;
+    }
+    &__icon {
+        color: #ffffff;
+        width: 80px;
+        height: 80px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}

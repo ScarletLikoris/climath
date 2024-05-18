@@ -6,8 +6,18 @@
     text-align: center;
     width: 1366px;
     height: 650px;
+    @media (width <= 800px) {
+        width: 360px;
+        height: 800px;
+    }
 }
 .climath {
+    @media (width <= 800px) {
+        width: 360px;
+        height: 800px;
+        display: flex;
+        flex-direction: column;
+    }
     width: 1366px;
     height: 650px;
     display: flex;
@@ -15,12 +25,22 @@
     position: relative;
 
     &__main {
+        @media (width <= 800px) {
+            width: 360px;
+            height: 800px;
+        }
         display: flex;
         height: 590px;
         width: 1082px;
         margin: 30px 30px 0 16px;
     }
     &__sidebar {
+        @media (width <= 800px) {
+            width: 360px;
+            height: 800px;
+            display: flex;
+            flex-direction: row;
+        }
         margin-top: 30px;
         margin-left: 30px;
         padding: 16px;

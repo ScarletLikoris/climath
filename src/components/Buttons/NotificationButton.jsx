@@ -6,6 +6,7 @@ const NotificationButton = ({ climateProblems }) => {
     const [visiblePopup, setVisiblePopup] = useState(false);
     const [isBad, setIsBad] = useState(false);
     const [haveIndicator, setHaveIndicator] = useState(false);
+
     let isBadCN = 'Notification__container_button';
     let problems = [];
 
@@ -37,7 +38,6 @@ const NotificationButton = ({ climateProblems }) => {
         return problems;
     };
     isProblems();
-
     if (isBad && problems.length == 0) {
         setIsBad(false);
         setHaveIndicator(false);
@@ -46,6 +46,7 @@ const NotificationButton = ({ climateProblems }) => {
         setIsBad(true);
         setHaveIndicator(true);
     }
+
     if (isBad) {
         isBadCN =
             'Notification__container_button Notification__container_button--bad';
