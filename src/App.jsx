@@ -2,6 +2,8 @@ import { NavLink, Route, Routes } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import './App.scss';
+import Auth from './components/Auth/Auth';
+import AuthExit from './components/Auth/AuthExit';
 import Home from './components/Home/Home';
 import Logo from './components/Logo/Logo';
 import Statistics from './components/Statistics/Statistics';
@@ -17,6 +19,16 @@ import {
 import emailjs from '@emailjs/browser';
 
 function App() {
+    const [time, setTime] = useState(new Date());
+
+    useEffect(() => {
+        const intervalTime = setInterval(() => {
+            setTime(new Date());
+        }, 1000);
+
+        return () => clearInterval(intervalTime);
+    }, []);
+
     function getWeekDay(date) {
         let days = [
             'Воскресенье',
@@ -31,22 +43,23 @@ function App() {
         return days[date.getDay()];
     }
 
-    let currentDate = new Date()
+    let currentDate = time
         .toISOString()
         .slice(5, 10)
         .split('-')
         .reverse()
         .join('.');
-    let currentTime = new Date().toTimeString().slice(0, 5);
-    let currentDateHome = new Date()
+    let currentTime = time.toTimeString().slice(0, 5);
+    let currentDateHome = time
         .toISOString()
         .slice(0, 10)
         .split('-')
         .reverse()
         .join('.');
-    let currentTimeHome = new Date().toTimeString().slice(0, 9);
-
-    const [comfortableDays, setCofmortableDays] = useState(0);
+    let currentTimeHome = time.toTimeString().slice(0, 9);
+    const [tokens, setTokens] = useState([]);
+    const [authorized, setAuthorized] = useState(false);
+    const [authToken, setAuthToken] = useState();
     const [w_comfort, set_w_comfort] = useState();
     const [comfortColor, setComfortColor] = useState();
     const [comfort, setComfort] = useState();
@@ -69,7 +82,7 @@ function App() {
     }
 
     const sendEmail = () => {
-        if (!loading) {
+        if (!loading && authorized && settings?.email) {
             let message = [];
             if (problems.temperature) {
                 message.push('Температура');
@@ -105,83 +118,158 @@ function App() {
     };
 
     const getMethod = () => {
-        console.log('get запрос');
-        setLoading(true);
-        axios.get('http://localhost:3000/climates').then(({ data }) => {
-            setClimates(data);
-        });
-        axios.get('http://localhost:3000/settings').then(({ data }) => {
-            newSettings(data);
-        });
-        axios
-            .get(
-                'https://api.openweathermap.org/data/2.5/weather?lat=54.75551&lon=55.99551&appid=4182aa5e1a7fe9cd80a2ff5e9c7cdb0c&units=metric',
-                {
-                    transformResponse: [
-                        function (data) {
-                            let response = JSON.parse(data);
+        if (authorized) {
+            console.log('get запрос');
+            setLoading(true);
+            axios
+                .get('http://localhost:3000/climates?authToken=' + authToken)
+                .then(({ data }) => {
+                    setClimates(data);
+                });
+            axios
+                .get('http://localhost:3000/settings?id=' + authToken)
+                .then(({ data }) => {
+                    if (data.length) {
+                        newSettings(data[0]);
+                    } else {
+                        axios.post('http://localhost:3000/settings', {
+                            id: authToken,
+                            updateInterval: 2,
+                            minTemperature: 20,
+                            maxTemperature: 28,
+                            minHumidity: 30,
+                            maxHumidity: 65,
+                            maxCO2: 1400,
+                            email: '',
+                        });
+                        newSettings({
+                            id: authToken,
+                            updateInterval: 2,
+                            minTemperature: 20,
+                            maxTemperature: 28,
+                            minHumidity: 30,
+                            maxHumidity: 65,
+                            maxCO2: 1400,
+                            email: '',
+                        });
+                    }
+                });
+            axios
+                .get(
+                    'https://api.openweathermap.org/data/2.5/weather?lat=54.75551&lon=55.99551&appid=4182aa5e1a7fe9cd80a2ff5e9c7cdb0c&units=metric',
+                    {
+                        transformResponse: [
+                            function (data) {
+                                let response = JSON.parse(data);
 
-                            response.main.co2 = Math.round(
-                                getRandomArbitrary(0.4, 2) *
-                                    response.main.pressure
-                            );
+                                response.main.co2 = Math.round(
+                                    getRandomArbitrary(0.4, 2) *
+                                        response.main.pressure
+                                );
 
-                            return response;
-                        },
-                    ],
-                }
-            )
-            .then(({ data }) => {
-                setClimate(data);
-            })
-            .finally(() => {
-                setLoading(false);
-            });
-        sendEmail();
+                                return response;
+                            },
+                        ],
+                    }
+                )
+                .then(({ data }) => {
+                    setClimate(data);
+                })
+                .finally(() => {
+                    setLoading(false);
+                });
+            sendEmail();
+        }
     };
 
-    const comfortableDaysCounter = () => {};
-
     useEffect(() => {
-        setLoading(true);
-        axios.get('http://localhost:3000/climates').then(({ data }) => {
-            setClimates(data);
-        });
-        axios.get('http://localhost:3000/settings').then(({ data }) => {
-            newSettings(data);
-            setInterval(() => {
-                getMethod();
-            }, data.updateInterval * 3600000);
-        });
-        axios
-            .get(
-                'https://api.openweathermap.org/data/2.5/weather?lat=54.75551&lon=55.99551&appid=4182aa5e1a7fe9cd80a2ff5e9c7cdb0c&units=metric',
-                {
-                    transformResponse: [
-                        function (data) {
-                            let response = JSON.parse(data);
-
-                            response.main.co2 = Math.round(
-                                getRandomArbitrary(0.4, 2) *
-                                    response.main.pressure
-                            );
-
-                            return response;
-                        },
-                    ],
-                }
-            )
-            .then(({ data }) => {
-                setClimate(data);
-            })
-            .finally(() => {
-                setLoading(false);
+        axios.get('http://localhost:3000/tokens').then(({ data }) => {
+            let newTokens = [];
+            data.map((token) => {
+                newTokens.push(token.id);
             });
-        // sendEmail();
+            setTokens(newTokens);
+        });
     }, []);
 
     useEffect(() => {
-        if (climate?.main) {
+        axios.get('http://localhost:3000/authorized').then(({ data }) => {
+            if (data.id) {
+                setAuthToken(data.id);
+                setAuthorized(true);
+            }
+        });
+    }, [authorized]);
+
+    useEffect(() => {
+        if (authorized) {
+            setLoading(true);
+            axios
+                .get('http://localhost:3000/climates?authToken=' + authToken)
+                .then(({ data }) => {
+                    setClimates(data);
+                });
+            axios
+                .get('http://localhost:3000/settings?id=' + authToken)
+                .then(({ data }) => {
+                    if (data.length) {
+                        newSettings(data[0]);
+                        setInterval(() => {
+                            getMethod();
+                        }, data[0].updateInterval * 3600000);
+                    } else {
+                        axios.post('http://localhost:3000/settings', {
+                            id: authToken,
+                            updateInterval: 2,
+                            minTemperature: 20,
+                            maxTemperature: 28,
+                            minHumidity: 30,
+                            maxHumidity: 65,
+                            maxCO2: 1400,
+                            email: '',
+                        });
+                        newSettings({
+                            id: authToken,
+                            updateInterval: 2,
+                            minTemperature: 20,
+                            maxTemperature: 28,
+                            minHumidity: 30,
+                            maxHumidity: 65,
+                            maxCO2: 1400,
+                            email: '',
+                        });
+                    }
+                });
+            axios
+                .get(
+                    'https://api.openweathermap.org/data/2.5/weather?lat=54.75551&lon=55.99551&appid=4182aa5e1a7fe9cd80a2ff5e9c7cdb0c&units=metric',
+                    {
+                        transformResponse: [
+                            function (data) {
+                                let response = JSON.parse(data);
+
+                                response.main.co2 = Math.round(
+                                    getRandomArbitrary(0.4, 2) *
+                                        response.main.pressure
+                                );
+
+                                return response;
+                            },
+                        ],
+                    }
+                )
+                .then(({ data }) => {
+                    setClimate(data);
+                })
+                .finally(() => {
+                    setLoading(false);
+                });
+            // sendEmail();
+        }
+    }, [authorized]);
+
+    useEffect(() => {
+        if (climate?.main && authorized) {
             if (Math.round(climate.main.temp) < settings.minTemperature) {
                 setProblems((p) => ({
                     ...p,
@@ -246,74 +334,90 @@ function App() {
         }
     }, [climate, settings]);
 
-    useEffect(() => {
-        if (climate?.main && comfortColor) {
-            axios
-                .post('http://localhost:3000/climates', {
-                    temperature: Math.round(climate.main.temp),
-                    co2: climate.main.co2,
-                    humidity: climate.main.humidity,
-                    isBad:
-                        Math.round(climate.main.temp) <
-                            settings.minTemperature ||
-                        Math.round(climate.main.temp) >
-                            settings.maxTemperature ||
-                        climate.main.humidity < settings.minHumidity ||
-                        climate.main.humidity > settings.maxHumidity ||
-                        climate.main.co2 > settings.maxCO2,
-                    date: `${getWeekDay(
-                        new Date()
-                    )}, ${currentDate}, ${currentTime}`,
-                    currentDay: currentDate.slice(0, 2),
-                    currentTime: currentTime,
-                    currentWeekDay: getWeekDay(new Date()),
-                    currentMonth: currentDate.slice(3, 5),
-                    currentDate: currentDateHome,
-                    temperatureCompare:
-                        climates.reverse()[0].temperature >
-                        Math.round(climate.main.temp)
-                            ? '-'
-                            : climates.reverse()[0].temperature <
-                              Math.round(climate.main.temp)
-                            ? '+'
-                            : '=',
-                    co2Compare:
-                        climates.reverse()[0].co2 > climate.main.co2
-                            ? '-'
-                            : climates.reverse()[0].co2 < climate.main.co2
-                            ? '+'
-                            : '=',
-                    humidityCompare:
-                        climates.reverse()[0].humidity > climate.main.humidity
-                            ? '-'
-                            : climates.reverse()[0].humidity <
-                              climate.main.humidity
-                            ? '+'
-                            : '=',
+    // useEffect(() => {
+    //     if (climate?.main && comfortColor) {
+    //         axios
+    //             .post(`http://localhost:3000/climates`, {
+    //                 authToken: authToken,
+    //                 temperature: Math.round(climate.main.temp),
+    //                 co2: climate.main.co2,
+    //                 humidity: climate.main.humidity,
+    //                 isBad:
+    //                     Math.round(climate.main.temp) <
+    //                         settings.minTemperature ||
+    //                     Math.round(climate.main.temp) >
+    //                         settings.maxTemperature ||
+    //                     climate.main.humidity < settings.minHumidity ||
+    //                     climate.main.humidity > settings.maxHumidity ||
+    //                     climate.main.co2 > settings.maxCO2,
+    //                 date: `${getWeekDay(
+    //                     new Date()
+    //                 )}, ${currentDate}, ${currentTime}`,
+    //                 currentDay: currentDate.slice(0, 2),
+    //                 currentTime: currentTime,
+    //                 currentWeekDay: getWeekDay(new Date()),
+    //                 currentMonth: currentDate.slice(3, 5),
+    //                 currentDate: currentDateHome,
+    //                 temperatureCompare:
+    //                     climates.length == 0
+    //                         ? '='
+    //                         : climates[climates.length - 1].temperature >
+    //                           Math.round(climate.main.temp)
+    //                         ? '-'
+    //                         : climates[climates.length - 1].temperature <
+    //                           Math.round(climate.main.temp)
+    //                         ? '+'
+    //                         : '=',
+    //                 co2Compare:
+    //                     climates.length == 0
+    //                         ? '='
+    //                         : climates[climates.length - 1].co2 >
+    //                           climate.main.co2
+    //                         ? '-'
+    //                         : climates[climates.length - 1].co2 <
+    //                           climate.main.co2
+    //                         ? '+'
+    //                         : '=',
+    //                 humidityCompare:
+    //                     climates.length == 0
+    //                         ? '='
+    //                         : climates[climates.length - 1].humidity >
+    //                           climate.main.humidity
+    //                         ? '-'
+    //                         : climates[climates.length - 1].humidity <
+    //                           climate.main.humidity
+    //                         ? '+'
+    //                         : '=',
 
-                    temperatureBad:
-                        Math.round(climate.main.temp) <
-                            settings.minTemperature ||
-                        Math.round(climate.main.temp) > settings.maxTemperature,
-                    co2Bad: climate.main.co2 > settings.maxCO2,
-                    humidityBad:
-                        climate.main.humidity < settings.minHumidity ||
-                        climate.main.humidity > settings.maxHumidity,
-                    w_comfort: w_comfort,
-                    comfortColor: comfortColor,
-                })
-                .then(({ data }) => {
-                    onAddClimates(data);
-                })
-                .catch((e) => {
-                    console.log(e);
-                });
-        }
-    }, [climate]);
+    //                 temperatureBad:
+    //                     Math.round(climate.main.temp) <
+    //                         settings.minTemperature ||
+    //                     Math.round(climate.main.temp) > settings.maxTemperature,
+    //                 co2Bad: climate.main.co2 > settings.maxCO2,
+    //                 humidityBad:
+    //                     climate.main.humidity < settings.minHumidity ||
+    //                     climate.main.humidity > settings.maxHumidity,
+    //                 w_comfort: w_comfort,
+    //                 comfortColor: comfortColor,
+    //             })
+    //             .then(({ data }) => {
+    //                 onAddClimates(data);
+    //             })
+    //             .catch((e) => {
+    //                 console.log(e);
+    //             });
+    //     }
+    // }, [climate]);
 
     return (
         <>
-            {loading ? (
+            {!authorized ? (
+                <Auth
+                    setAuthorized={setAuthorized}
+                    setAuthToken={setAuthToken}
+                    tokens={tokens}
+                />
+            ) : loading ? (
                 'Loading...'
             ) : (
                 <div className="climath">
@@ -321,21 +425,27 @@ function App() {
                         <Logo />
                         <div className="climath__sidebar-navbar">
                             <NavLink to="/" draggable="false">
-                                <HomeRounded /> Главная
+                                <HomeRounded />
+                                <span>Главная</span>
                             </NavLink>
                             <NavLink to="/stats" draggable="false">
                                 <BarChartRounded />
-                                Статистика
+                                <span>Статистика</span>
                             </NavLink>
                             <NavLink to="/history" draggable="false">
                                 <ScheduleRounded />
-                                История
+                                <span>История</span>
                             </NavLink>
                             <NavLink to="recommendations" draggable="false">
                                 <BookmarkAddedRounded />
-                                Рекомендации
+                                <span>Рекомендации</span>
                             </NavLink>
                         </div>
+                        <AuthExit
+                            authToken={authToken}
+                            setAuthToken={setAuthToken}
+                            setAuthorized={setAuthorized}
+                        />
                     </div>
                     <div className="climath__main">
                         <Routes>
@@ -343,6 +453,7 @@ function App() {
                                 path="/"
                                 element={
                                     <Home
+                                        authToken={authToken}
                                         comfort={comfort}
                                         setComfort={setComfort}
                                         sendEmail={sendEmail}
@@ -360,7 +471,6 @@ function App() {
                                         )}
                                         co2={climate.main.co2}
                                         humidity={climate.main.humidity}
-                                        comfortableDays={comfortableDays}
                                         currentDate={currentDateHome}
                                         currentTime={currentTimeHome}
                                     />
@@ -370,6 +480,7 @@ function App() {
                                 path="/stats"
                                 element={
                                     <Statistics
+                                        authToken={authToken}
                                         currentDateHome={currentDateHome}
                                         sendEmail={sendEmail}
                                         climates={climates}

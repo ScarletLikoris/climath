@@ -1,0 +1,87 @@
+@import '/styles/variables';
+
+.auth {
+    @media (width <= 800px) {
+        width: 360px;
+        height: 800px;
+        overflow: hidden;
+    }
+    margin: 0 auto;
+    width: 1366px;
+    height: 650px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: $color-main-background;
+    &__login {
+        @media (width <= 800px) {
+            width: 340px;
+            height: 123px;
+        }
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: flex-start;
+        padding: 24px 32px;
+        width: 800px;
+        height: 123px;
+        background: $color-white;
+        border-radius: 16px;
+        h1 {
+            margin: 0;
+            font-family: 'Roboto Flex';
+            font-style: normal;
+            font-weight: 600;
+            font-size: 20px;
+            line-height: 23px;
+        }
+        &__input {
+            @media (width <= 800px) {
+                width: 276px;
+                // height: 123px;
+            }
+            width: 736px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+    }
+    &__exit {
+        @media (width <= 800px) {
+            margin: 0;
+            padding: 0;
+            width: 152px;
+            flex-direction: row-reverse;
+            justify-content: space-between;
+            margin-right: 16px;
+        }
+        margin-top: 218px;
+        box-sizing: border-box;
+        width: 176px;
+        height: 44px;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        padding-left: 16px;
+        padding-right: 16px;
+        svg {
+            width: 16px;
+            height: 16px;
+        }
+        button {
+            margin-right: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0;
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+            border: 0;
+            background-color: $color-white;
+        }
+    }
+}

@@ -1,5 +1,9 @@
 @import '../../../styles/variables.scss';
 .logo {
+    @media (width <= 800px) {
+        // margin-top: 16px;
+        margin-left: 16px;
+    }
     width: 136px;
     height: 28px;
 

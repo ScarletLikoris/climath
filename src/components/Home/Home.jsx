@@ -8,6 +8,7 @@ import SettingsButton from '../Buttons/SettingsButton';
 import ComfortHome from '../Comfort/ComfortHome';
 
 const Home = ({
+    authToken,
     comfort,
     setComfort,
     sendEmail,
@@ -37,6 +38,7 @@ const Home = ({
                         sendEmail={sendEmail}
                     />
                     <SettingsButton
+                        authToken={authToken}
                         settings={settings}
                         newSettings={newSettings}
                     />

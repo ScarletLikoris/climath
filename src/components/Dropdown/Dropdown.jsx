@@ -27,49 +27,50 @@ function Dropdown({ isShort, setDropdownValue }) {
             >
                 {selectList[dropdownSelect]}
                 <i className="bi-chevron-down"></i>
+
+                {visibleDropdown && (
+                    <div
+                        className={
+                            isShort
+                                ? 'dropdown__content dropdown__content--short'
+                                : 'dropdown__content'
+                        }
+                    >
+                        <button
+                            className="dropdown__content_button"
+                            onClick={() => {
+                                onClose(0);
+                            }}
+                        >
+                            {selectList[0]}
+                        </button>
+                        <button
+                            className="dropdown__content_button"
+                            onClick={() => {
+                                onClose(1);
+                            }}
+                        >
+                            {selectList[1]}
+                        </button>
+                        <button
+                            className="dropdown__content_button"
+                            onClick={() => {
+                                onClose(2);
+                            }}
+                        >
+                            {selectList[2]}
+                        </button>
+                        <button
+                            className="dropdown__content_button"
+                            onClick={() => {
+                                onClose(3);
+                            }}
+                        >
+                            {selectList[3]}
+                        </button>
+                    </div>
+                )}
             </button>
-            {visibleDropdown && (
-                <div
-                    className={
-                        isShort
-                            ? 'dropdown__content dropdown__content--short'
-                            : 'dropdown__content'
-                    }
-                >
-                    <button
-                        className="dropdown__content_button"
-                        onClick={() => {
-                            onClose(0);
-                        }}
-                    >
-                        {selectList[0]}
-                    </button>
-                    <button
-                        className="dropdown__content_button"
-                        onClick={() => {
-                            onClose(1);
-                        }}
-                    >
-                        {selectList[1]}
-                    </button>
-                    <button
-                        className="dropdown__content_button"
-                        onClick={() => {
-                            onClose(2);
-                        }}
-                    >
-                        {selectList[2]}
-                    </button>
-                    <button
-                        className="dropdown__content_button"
-                        onClick={() => {
-                            onClose(3);
-                        }}
-                    >
-                        {selectList[3]}
-                    </button>
-                </div>
-            )}
         </div>
     );
 }

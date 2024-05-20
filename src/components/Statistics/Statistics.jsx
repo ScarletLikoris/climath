@@ -9,7 +9,7 @@ import ReportButton from '../Buttons/ReportButton';
 
 const Statistics = ({
     currentDateHome,
-
+    authToken,
     sendEmail,
     problems,
     climates,
@@ -21,7 +21,11 @@ const Statistics = ({
         <div className="statistics">
             <div className="statistics__header">
                 <ReloadButton setClimate={setClimate} sendEmail={sendEmail} />
-                <SettingsButton settings={settings} newSettings={newSettings} />
+                <SettingsButton
+                    settings={settings}
+                    newSettings={newSettings}
+                    authToken={authToken}
+                />
                 <NotificationButton climateProblems={problems} />
                 <ReportButton
                     climates={climates}

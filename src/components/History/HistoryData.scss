@@ -1,5 +1,12 @@
 @import '/styles/variables.scss';
 .history_data {
+    @media (width <= 800px) {
+        width: 328px;
+        height: 235px;
+        margin-top: 40px;
+        flex-wrap: wrap;
+        margin-left: 16px;
+    }
     width: 857px;
     height: 160px;
     // margin-top: 16px;
@@ -44,6 +51,12 @@
         }
     }
     &__info {
+        @media (width <= 800px) {
+            width: 276px;
+            height: 87px;
+            padding: 20px;
+            gap: 12px;
+        }
         box-sizing: border-box;
 
         display: flex;
@@ -60,11 +73,19 @@
             border: 3px solid $color-red-border;
         }
         span {
+            @media (width <= 800px) {
+                font-weight: 300;
+                font-size: 14px;
+            }
             margin: 0;
             // margin-top: 26px;
             // margin-bottom: 16px;
         }
         p {
+            @media (width <= 800px) {
+                font-weight: 500;
+                font-size: 16px;
+            }
             margin: 0;
             // margin-bottom: 26px;
             font-weight: 600;
@@ -72,6 +93,14 @@
         }
     }
     &__stats {
+        @media (width <= 800px) {
+            width: 276px;
+            height: 100px;
+            margin: 0;
+            margin-left: 52px;
+            margin-top: 12px;
+            padding: 12px 0;
+        }
         box-sizing: border-box;
 
         display: flex;
@@ -85,6 +114,12 @@
         border: 3px solid $color-green-border;
         border-radius: 16px;
         &-stat {
+            @media (width <= 800px) {
+                width: 270px;
+                height: 24px;
+                box-sizing: border-box;
+                padding: 4px 20px;
+            }
             width: 370px;
             height: 20px;
             padding: 4px 32px 4px 32px;
@@ -96,6 +131,14 @@
                 background-color: $color-red-border;
             }
             span {
+                @media (width <= 800px) {
+                    width: 150px;
+                    font-size: 14px;
+                    font-weight: 300;
+                    &:last-of-type {
+                        width: 70px;
+                    }
+                }
                 width: 180px;
                 height: 20px;
                 text-align: left;

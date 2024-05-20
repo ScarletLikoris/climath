@@ -13,19 +13,22 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
 
-const SettingsButton = ({ settings, newSettings }) => {
+const SettingsButton = ({ settings, newSettings, authToken }) => {
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
     const [value, setValue] = useState(settings);
     const [open, setOpen] = useState(false);
 
     useEffect(() => {
-        axios.get('http://localhost:3000/settings').then(({ data }) => {
-            newSettings(data);
-        });
+        axios
+            .get('http://localhost:3000/settings?id=' + authToken)
+            .then(({ data }) => {
+                newSettings(data[0]);
+            });
     }, []);
 
     const recommendedSettings = {
+        id: authToken,
         updateInterval: settings.updateInterval,
         minTemperature: 20,
         maxTemperature: 28,
@@ -37,9 +40,11 @@ const SettingsButton = ({ settings, newSettings }) => {
 
     const handleClickOpen = () => {
         setOpen(true);
-        axios.get('http://localhost:3000/settings').then(({ data }) => {
-            newSettings(data);
-        });
+        axios
+            .get('http://localhost:3000/settings?id=' + authToken)
+            .then(({ data }) => {
+                newSettings(data[0]);
+            });
         setValue(settings);
     };
 
@@ -54,9 +59,11 @@ const SettingsButton = ({ settings, newSettings }) => {
 
     const saveSettings = () => {
         handleClose();
-        axios.put('http://localhost:3000/settings', value).catch(() => {
-            alert('Не удалось сохранить настройки');
-        });
+        axios
+            .put('http://localhost:3000/settings/' + authToken, value)
+            .catch(() => {
+                alert('Не удалось сохранить настройки');
+            });
         newSettings(value);
     };
     return (

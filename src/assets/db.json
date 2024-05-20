@@ -1,15 +1,55 @@
 {
-  "settings": {
-    "updateInterval": "2",
-    "minTemperature": 20,
-    "maxTemperature": 28,
-    "minHumidity": 30,
-    "maxHumidity": 65,
-    "maxCO2": 1400,
-    "email": "climath@inbox.ru"
+  "authorized": {
+    "id": "asdFGH7890-="
   },
+  "tokens": [
+    {
+      "id": "z1x2c3v4b5n6"
+    },
+    {
+      "id": "QwErTy123,./"
+    },
+    {
+      "id": "asdFGH7890-="
+    }
+  ],
+  "settings": [
+    {
+      "updateInterval": "2",
+      "minTemperature": 20,
+      "maxTemperature": 28,
+      "minHumidity": 30,
+      "maxHumidity": 65,
+      "maxCO2": 1400,
+      "email": "",
+      "id": "z1x2c3v4b5n6"
+    },
+    {
+      "id": "asdFGH7890-=",
+      "updateInterval": "2",
+      "minTemperature": 20,
+      "maxTemperature": 28,
+      "minHumidity": 30,
+      "maxHumidity": 65,
+      "maxCO2": 1400,
+      "email": ""
+    },
+    {
+      "id": {
+        "id": "asdFGH7890-="
+      },
+      "updateInterval": 2,
+      "minTemperature": 20,
+      "maxTemperature": 28,
+      "minHumidity": 30,
+      "maxHumidity": 65,
+      "maxCO2": 1400,
+      "email": ""
+    }
+  ],
   "climates": [
     {
+      "authToken": "z1x2c3v4b5n6",
       "id": "25c0",
       "temperature": 6,
       "co2": 862,
@@ -32,6 +72,7 @@
     },
     {
       "id": "726d",
+      "authToken": "z1x2c3v4b5n6",
       "temperature": 5,
       "co2": 1731,
       "humidity": 38,
@@ -53,6 +94,7 @@
     },
     {
       "id": "7cf9",
+      "authToken": "z1x2c3v4b5n6",
       "temperature": 9,
       "co2": 751,
       "humidity": 41,
@@ -74,6 +116,7 @@
     },
     {
       "id": "f5f6",
+      "authToken": "z1x2c3v4b5n6",
       "temperature": 13,
       "co2": 1613,
       "humidity": 42,
@@ -95,6 +138,7 @@
     },
     {
       "id": "547e",
+      "authToken": "z1x2c3v4b5n6",
       "temperature": 13,
       "co2": 2047,
       "humidity": 42,
@@ -116,6 +160,7 @@
     },
     {
       "id": "9a92",
+      "authToken": "z1x2c3v4b5n6",
       "temperature": 15,
       "co2": 1694,
       "humidity": 52,
@@ -137,6 +182,7 @@
     },
     {
       "id": "2eed",
+      "authToken": "z1x2c3v4b5n6",
       "temperature": 15,
       "co2": 1400,
       "humidity": 52,
@@ -158,6 +204,7 @@
     },
     {
       "id": "f6d7",
+      "authToken": "z1x2c3v4b5n6",
       "temperature": 10,
       "co2": 674,
       "humidity": 71,
@@ -179,6 +226,7 @@
     },
     {
       "id": "e395",
+      "authToken": "z1x2c3v4b5n6",
       "temperature": 10,
       "co2": 708,
       "humidity": 71,
@@ -200,6 +248,7 @@
     },
     {
       "id": "bf1b",
+      "authToken": "z1x2c3v4b5n6",
       "temperature": 10,
       "co2": 834,
       "humidity": 71,
@@ -217,6 +266,182 @@
       "co2Bad": false,
       "humidityBad": true,
       "w_comfort": -1.5062282757825447,
+      "comfortColor": "#FFD4FB"
+    },
+    {
+      "id": "04c7",
+      "authToken": "z1x2c3v4b5n6",
+      "temperature": 4,
+      "co2": 1251,
+      "humidity": 67,
+      "isBad": true,
+      "date": "Воскресенье, 19.05, 07:25",
+      "currentDay": "19",
+      "currentTime": "07:25",
+      "currentWeekDay": "Воскресенье",
+      "currentMonth": "05",
+      "currentDate": "19.05.2024",
+      "temperatureCompare": "-",
+      "co2Compare": "+",
+      "humidityCompare": "=",
+      "temperatureBad": true,
+      "co2Bad": false,
+      "humidityBad": true,
+      "w_comfort": -3.4233449585014286,
+      "comfortColor": "#FFD4FB"
+    },
+    {
+      "id": "701d",
+      "authToken": "asdFGH7890-=",
+      "temperature": 9,
+      "co2": 776,
+      "humidity": 54,
+      "isBad": true,
+      "date": "Воскресенье, 19.05, 11:29",
+      "currentDay": "19",
+      "currentTime": "11:29",
+      "currentWeekDay": "Воскресенье",
+      "currentMonth": "05",
+      "currentDate": "19.05.2024",
+      "temperatureCompare": "=",
+      "co2Compare": "-",
+      "humidityCompare": "=",
+      "temperatureBad": true,
+      "co2Bad": false,
+      "humidityBad": false,
+      "w_comfort": -2.0487152767547276,
+      "comfortColor": "#FFD4FB"
+    },
+    {
+      "id": "47ed",
+      "authToken": "asdFGH7890-=",
+      "temperature": 9,
+      "co2": 737,
+      "humidity": 54,
+      "isBad": true,
+      "date": "Воскресенье, 19.05, 11:39",
+      "currentDay": "19",
+      "currentTime": "11:39",
+      "currentWeekDay": "Воскресенье",
+      "currentMonth": "05",
+      "currentDate": "19.05.2024",
+      "temperatureCompare": "=",
+      "co2Compare": "-",
+      "humidityCompare": "=",
+      "temperatureBad": true,
+      "co2Bad": false,
+      "humidityBad": false,
+      "w_comfort": -1.96850807366978,
+      "comfortColor": "#FFD4FB"
+    },
+    {
+      "id": "19e3",
+      "authToken": "asdFGH7890-=",
+      "temperature": 9,
+      "co2": 1162,
+      "humidity": 54,
+      "isBad": true,
+      "date": "Воскресенье, 19.05, 11:45",
+      "currentDay": "19",
+      "currentTime": "11:45",
+      "currentWeekDay": "Воскресенье",
+      "currentMonth": "05",
+      "currentDate": "19.05.2024",
+      "temperatureCompare": "=",
+      "co2Compare": "-",
+      "humidityCompare": "=",
+      "temperatureBad": true,
+      "co2Bad": false,
+      "humidityBad": false,
+      "w_comfort": -1.2982708708794708,
+      "comfortColor": "#FFD4FB"
+    },
+    {
+      "id": "5b17",
+      "authToken": "asdFGH7890-=",
+      "temperature": 9,
+      "co2": 502,
+      "humidity": 54,
+      "isBad": true,
+      "date": "Воскресенье, 19.05, 12:12",
+      "currentDay": "19",
+      "currentTime": "12:12",
+      "currentWeekDay": "Воскресенье",
+      "currentMonth": "05",
+      "currentDate": "19.05.2024",
+      "temperatureCompare": "=",
+      "co2Compare": "-",
+      "humidityCompare": "=",
+      "temperatureBad": true,
+      "co2Bad": false,
+      "humidityBad": false,
+      "w_comfort": -2.0487152767547276,
+      "comfortColor": "#FFD4FB"
+    },
+    {
+      "id": "b782",
+      "authToken": "asdFGH7890-=",
+      "temperature": 9,
+      "co2": 1607,
+      "humidity": 54,
+      "isBad": true,
+      "date": "Воскресенье, 19.05, 13:17",
+      "currentDay": "19",
+      "currentTime": "13:17",
+      "currentWeekDay": "Воскресенье",
+      "currentMonth": "05",
+      "currentDate": "19.05.2024",
+      "temperatureCompare": "=",
+      "co2Compare": "+",
+      "humidityCompare": "=",
+      "temperatureBad": true,
+      "co2Bad": true,
+      "humidityBad": false,
+      "w_comfort": -1.2825981990122972,
+      "comfortColor": "#FFD4FB"
+    },
+    {
+      "id": "75cf",
+      "authToken": "asdFGH7890-=",
+      "temperature": 9,
+      "co2": 2010,
+      "humidity": 54,
+      "isBad": true,
+      "date": "Воскресенье, 19.05, 13:23",
+      "currentDay": "19",
+      "currentTime": "13:23",
+      "currentWeekDay": "Воскресенье",
+      "currentMonth": "05",
+      "currentDate": "19.05.2024",
+      "temperatureCompare": "=",
+      "co2Compare": "+",
+      "humidityCompare": "=",
+      "temperatureBad": true,
+      "co2Bad": true,
+      "humidityBad": false,
+      "w_comfort": -0.8197934179934043,
+      "comfortColor": "#E0D4FF"
+    },
+    {
+      "id": "7ce4",
+      "authToken": "z1x2c3v4b5n6",
+      "temperature": 9,
+      "co2": 862,
+      "humidity": 54,
+      "isBad": true,
+      "date": "Воскресенье, 19.05, 13:28",
+      "currentDay": "19",
+      "currentTime": "13:28",
+      "currentWeekDay": "Воскресенье",
+      "currentMonth": "05",
+      "currentDate": "19.05.2024",
+      "temperatureCompare": "+",
+      "co2Compare": "-",
+      "humidityCompare": "-",
+      "temperatureBad": true,
+      "co2Bad": false,
+      "humidityBad": false,
+      "w_comfort": -1.5988174019793895,
       "comfortColor": "#FFD4FB"
     }
   ]

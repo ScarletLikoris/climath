@@ -128,7 +128,7 @@ const ReportButton = ({ climates, currentDateHome }) => {
         <div className="report">
             <button className="report_button" onClick={handleClickOpen}>
                 <DownloadRoundedIcon />
-                Скачать отчет
+                <span>Скачать отчет</span>
             </button>
             <Dialog
                 fullScreen={fullScreen}

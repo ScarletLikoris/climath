@@ -36,7 +36,7 @@ const ReloadButton = ({ setClimate, sendEmail }) => {
     return (
         <button className="Reload_button" onClick={onReload}>
             <ReplayRoundedIcon />
-            Обновить
+            <span>Обновить</span>
         </button>
     );
 };

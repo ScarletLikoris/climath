@@ -1,5 +1,11 @@
 @import '/styles/variables.scss';
 .climate {
+    @media (width <= 800px) {
+        width: 328px;
+        height: 100px;
+        padding: 16px;
+        margin-bottom: 12px;
+    }
     box-sizing: border-box;
 
     display: flex;
@@ -23,6 +29,9 @@
     }
 
     &__wrapper {
+        @media (width <= 800px) {
+            width: 290px;
+        }
         display: flex;
         font-display: row;
         justify-content: space-between;
@@ -36,6 +45,9 @@
             display: flex;
             flex-direction: row;
             &_o {
+                @media (width <= 800px) {
+                    font-size: 14px;
+                }
                 margin: 0;
                 margin-left: 2px;
                 // margin-right: 2px;
@@ -51,11 +63,17 @@
         margin-left: 8px;
     }
     &__const {
+        @media (width <= 800px) {
+            font-size: 16px;
+        }
         display: flex;
         flex-direction: row;
         font-weight: 600;
         font-size: 20px;
         &_o {
+            @media (width <= 800px) {
+                font-size: 10px;
+            }
             margin: 0;
             margin-left: 2px;
             font-size: 14px;
@@ -63,9 +81,16 @@
         }
     }
     h1 {
+        @media (width <= 800px) {
+            font-weight: 300;
+            font-size: 14px;
+        }
         margin: 0;
     }
     span {
+        @media (width <= 800px) {
+            font-size: 24px;
+        }
         font-size: 40px;
         font-weight: 600;
     }

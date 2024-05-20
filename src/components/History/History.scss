@@ -1,5 +1,12 @@
 @import '/styles/variables.scss';
 .history {
+    @media (width <= 800px) {
+        width: 360px;
+        height: 800px;
+        flex-direction: column-reverse;
+        border-radius: 0;
+        justify-content: start;
+    }
     width: 1082px;
     height: 590px;
     background: $color-white;
@@ -8,6 +15,14 @@
     display: flex;
     flex-direction: row;
     &__content {
+        @media (width <= 800px) {
+            box-sizing: border-box;
+            width: 360px;
+            margin: 0;
+            height: auto;
+            margin-top: 60px;
+            margin-bottom: 56px;
+        }
         overflow-y: scroll;
         overflow-x: hidden;
         position: relative;
@@ -20,6 +35,9 @@
         // justify-content: space-between;
     }
     &__divider {
+        @media (width <= 800px) {
+            height: 800px;
+        }
         position: absolute;
         width: 2px;
         height: 590px;
@@ -30,6 +48,13 @@
         z-index: 1;
     }
     &__sidebar {
+        @media (width <= 800px) {
+            visibility: hidden;
+            flex-direction: row;
+            width: 0px;
+            height: 0px;
+            margin: 0;
+        }
         width: 140px;
         height: 92px;
         display: flex;
