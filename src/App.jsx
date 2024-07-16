@@ -334,80 +334,80 @@ function App() {
         }
     }, [climate, settings]);
 
-    // useEffect(() => {
-    //     if (climate?.main && comfortColor) {
-    //         axios
-    //             .post(`http://localhost:3000/climates`, {
-    //                 authToken: authToken,
-    //                 temperature: Math.round(climate.main.temp),
-    //                 co2: climate.main.co2,
-    //                 humidity: climate.main.humidity,
-    //                 isBad:
-    //                     Math.round(climate.main.temp) <
-    //                         settings.minTemperature ||
-    //                     Math.round(climate.main.temp) >
-    //                         settings.maxTemperature ||
-    //                     climate.main.humidity < settings.minHumidity ||
-    //                     climate.main.humidity > settings.maxHumidity ||
-    //                     climate.main.co2 > settings.maxCO2,
-    //                 date: `${getWeekDay(
-    //                     new Date()
-    //                 )}, ${currentDate}, ${currentTime}`,
-    //                 currentDay: currentDate.slice(0, 2),
-    //                 currentTime: currentTime,
-    //                 currentWeekDay: getWeekDay(new Date()),
-    //                 currentMonth: currentDate.slice(3, 5),
-    //                 currentDate: currentDateHome,
-    //                 temperatureCompare:
-    //                     climates.length == 0
-    //                         ? '='
-    //                         : climates[climates.length - 1].temperature >
-    //                           Math.round(climate.main.temp)
-    //                         ? '-'
-    //                         : climates[climates.length - 1].temperature <
-    //                           Math.round(climate.main.temp)
-    //                         ? '+'
-    //                         : '=',
-    //                 co2Compare:
-    //                     climates.length == 0
-    //                         ? '='
-    //                         : climates[climates.length - 1].co2 >
-    //                           climate.main.co2
-    //                         ? '-'
-    //                         : climates[climates.length - 1].co2 <
-    //                           climate.main.co2
-    //                         ? '+'
-    //                         : '=',
-    //                 humidityCompare:
-    //                     climates.length == 0
-    //                         ? '='
-    //                         : climates[climates.length - 1].humidity >
-    //                           climate.main.humidity
-    //                         ? '-'
-    //                         : climates[climates.length - 1].humidity <
-    //                           climate.main.humidity
-    //                         ? '+'
-    //                         : '=',
+    useEffect(() => {
+        if (climate?.main && comfortColor) {
+            axios
+                .post(`http://localhost:3000/climates`, {
+                    authToken: authToken,
+                    temperature: Math.round(climate.main.temp),
+                    co2: climate.main.co2,
+                    humidity: climate.main.humidity,
+                    isBad:
+                        Math.round(climate.main.temp) <
+                            settings.minTemperature ||
+                        Math.round(climate.main.temp) >
+                            settings.maxTemperature ||
+                        climate.main.humidity < settings.minHumidity ||
+                        climate.main.humidity > settings.maxHumidity ||
+                        climate.main.co2 > settings.maxCO2,
+                    date: `${getWeekDay(
+                        new Date()
+                    )}, ${currentDate}, ${currentTime}`,
+                    currentDay: currentDate.slice(0, 2),
+                    currentTime: currentTime,
+                    currentWeekDay: getWeekDay(new Date()),
+                    currentMonth: currentDate.slice(3, 5),
+                    currentDate: currentDateHome,
+                    temperatureCompare:
+                        climates.length == 0
+                            ? '='
+                            : climates[climates.length - 1].temperature >
+                              Math.round(climate.main.temp)
+                            ? '-'
+                            : climates[climates.length - 1].temperature <
+                              Math.round(climate.main.temp)
+                            ? '+'
+                            : '=',
+                    co2Compare:
+                        climates.length == 0
+                            ? '='
+                            : climates[climates.length - 1].co2 >
+                              climate.main.co2
+                            ? '-'
+                            : climates[climates.length - 1].co2 <
+                              climate.main.co2
+                            ? '+'
+                            : '=',
+                    humidityCompare:
+                        climates.length == 0
+                            ? '='
+                            : climates[climates.length - 1].humidity >
+                              climate.main.humidity
+                            ? '-'
+                            : climates[climates.length - 1].humidity <
+                              climate.main.humidity
+                            ? '+'
+                            : '=',
 
-    //                 temperatureBad:
-    //                     Math.round(climate.main.temp) <
-    //                         settings.minTemperature ||
-    //                     Math.round(climate.main.temp) > settings.maxTemperature,
-    //                 co2Bad: climate.main.co2 > settings.maxCO2,
-    //                 humidityBad:
-    //                     climate.main.humidity < settings.minHumidity ||
-    //                     climate.main.humidity > settings.maxHumidity,
-    //                 w_comfort: w_comfort,
-    //                 comfortColor: comfortColor,
-    //             })
-    //             .then(({ data }) => {
-    //                 onAddClimates(data);
-    //             })
-    //             .catch((e) => {
-    //                 console.log(e);
-    //             });
-    //     }
-    // }, [climate]);
+                    temperatureBad:
+                        Math.round(climate.main.temp) <
+                            settings.minTemperature ||
+                        Math.round(climate.main.temp) > settings.maxTemperature,
+                    co2Bad: climate.main.co2 > settings.maxCO2,
+                    humidityBad:
+                        climate.main.humidity < settings.minHumidity ||
+                        climate.main.humidity > settings.maxHumidity,
+                    w_comfort: w_comfort,
+                    comfortColor: comfortColor,
+                })
+                .then(({ data }) => {
+                    onAddClimates(data);
+                })
+                .catch((e) => {
+                    console.log(e);
+                });
+        }
+    }, [climate]);
 
     return (
         <>
